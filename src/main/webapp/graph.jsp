@@ -1,14 +1,11 @@
 <%@page contentType="text/html;UTF-8" language="java"%>
 <%@ page import="java.util.List" %>
 <%@ page import="ru.ifmo.entities.Query" %>
-<%@ page import="java.util.ArrayList" %>
 <html>
 <head>
     <title>Math the Cat</title>
     <link rel="stylesheet" href="style.css">
-    <!-- <script src="queries.js" defer></script>
-    <script src="validation.js" defer></script> -->
-    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="validation.js" defer></script>
 </head>
 <body>
     <table class="frame_table">
@@ -19,7 +16,7 @@
                         <a href="index.html">Math the Cat</a>
                     </li>
                     <li>
-                        <a href="history.html">История</a>
+                        <a href="history.jsp">История</a>
                     </li>
                     <li>
                         <a href="contact.html">Контакты</a>
@@ -39,11 +36,10 @@
             <tr class="margin_raw">
                 <td colspan="5"></td>
                 <td id="col_5" rowspan="8">
-                    <img src="img/function.jpg" alt="function_graph">
+                        <img src="img/function.jpg" alt="function_graph">
                 </td>
             </tr>
 
-<%--            <iframe name="frm" style="display: none"></iframe>--%>
             <form action="/throw" method="GET" id="input_form">
                 <tr>
                     <td id="col_0"></td>
@@ -120,7 +116,7 @@
             <tr>
                 <td></td>
                 <td colspan="4">
-                    <a href="history.html" class="btn">
+                    <a href="/history.jsp" class="btn">
                         Перейти к истории запросов
                     </a>
                 </td>
