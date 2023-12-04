@@ -18,8 +18,7 @@ public class ControllerServlet extends HttpServlet {
                 !req.getParameter("y_coordinate").isEmpty() &&
                 !req.getParameter("r_coordinate").isEmpty()) {
             req.getRequestDispatcher("/area").forward(req, resp);
-        } else {
-            resp.sendRedirect("/graph.jsp");
         }
+        log("Got it");
     }
 }

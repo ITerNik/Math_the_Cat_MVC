@@ -1,6 +1,6 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="ru.ifmo.entities.Query" %>
 <%@ page import="java.util.List" %>
-<%@ page contentType="text/html; UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head>

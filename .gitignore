@@ -1,13 +1,12 @@
 target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+**/src/main/**/*.js
+mvnw
+mvnw.cmd
+.gitignore
 
 ### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
+.idea
+.mvn
 *.iws
 *.iml
 *.ipr
@@ -36,3 +35,4 @@ build/
 
 ### Mac OS ###
 .DS_Store
+/.idea/

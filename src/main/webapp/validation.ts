@@ -23,7 +23,13 @@ form.onsubmit = function(event: Event): void {
     valid = checkIfValidRadio(inputX, inputWarningX) && valid;
 
     if (valid) {
-        inputForm.submit();
+        $.ajax({type: $(this).attr('method'),
+            url: $(this).attr('action'),
+            data : $(this).serialize(),
+            success : (data) => {
+                $("#result-table").html(data)
+            }
+        });
     }
 };
 

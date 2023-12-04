@@ -1,11 +1,12 @@
-<%@page contentType="text/html;UTF-8" language="java"%>
-<%@ page import="java.util.List" %>
-<%@ page import="ru.ifmo.entities.Query" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <html>
 <head>
     <title>Math the Cat</title>
     <link rel="stylesheet" href="style.css">
+    <script src="graphics.js" defer></script>
     <script src="validation.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <table class="frame_table">
@@ -36,7 +37,9 @@
             <tr class="margin_raw">
                 <td colspan="5"></td>
                 <td id="col_5" rowspan="8">
+                    <canvas width="550" height="550" id="graphics">
                         <img src="img/function.jpg" alt="function_graph">
+                    </canvas>
                 </td>
             </tr>
 
@@ -94,21 +97,8 @@
                 <td colspan="4">
                     <div class="recent_result">
                         <h2>Последний запрос:</h2>
-                        <table>
-                            <% List<Query> history = (List<Query>)session.getAttribute("history"); %>
-                            <% if (history == null || history.isEmpty()) { %>
-                                <td>Nothing yet</td>
-                            <% } else {
-                                Query last = history.get(history.size() - 1); %>
-                                <tr>
-                                    <th>X</th> <th>Y</th> <th>R</th> <th>Status</th> <th>Time</th> <th>Speed</th>
-                                </tr>
-                                <tr>
-                                    <td><% out.print(last.getX()); %></td><td><% out.print(last.getY()); %></td>
-                                    <td><% out.print(last.getR()); %></td><td><% out.print(last.isStatus()); %></td>
-                                    <td><% out.print(last.getTime()); %></td><td><% out.print(last.getSpeed()); %></td>
-                                </tr>
-                            <% } %>
+                        <table id="result-table">
+                            <jsp:include page="area-result.jsp" />
                         </table>
                     </div>
                 </td>

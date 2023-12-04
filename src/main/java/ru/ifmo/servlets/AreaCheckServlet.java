@@ -36,7 +36,8 @@ public class AreaCheckServlet extends HttpServlet {
                                 "<td><span id=\"speed_val\">%s</span>мс</td>", x, y, r, (flag ? "success" : "fail"),
                                 (flag ? "Попал" : "Мимо"), current.getHour(), current.getMinute(), System.currentTimeMillis() - start) +
                             "</tr>");*/
-        resp.sendRedirect("/graph.jsp");
+//        resp.sendRedirect("/graph.jsp");
+        req.getRequestDispatcher("/area-result.jsp").forward(req, resp);
     }
 
     private boolean checkPoint(double x, double y, double r) {
