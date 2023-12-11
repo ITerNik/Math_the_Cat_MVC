@@ -4,8 +4,8 @@
 <head>
     <title>Math the Cat</title>
     <link rel="stylesheet" href="style.css">
-    <script src="graphics.js" defer></script>
     <script src="validation.js" defer></script>
+    <script src="graphics.js" defer></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
@@ -14,16 +14,16 @@
             <tr>
                 <ul class="nav_panel background_black">
                     <li>
-                        <a href="index.html">Math the Cat</a>
+                        <a href="../pages/index.jsp">Math the Cat</a>
                     </li>
                     <li>
                         <a href="history.jsp">История</a>
                     </li>
                     <li>
-                        <a href="contact.html">Контакты</a>
+                        <a href="../pages/contacts.jsp">Контакты</a>
                     </li>
                     <li>
-                        <a href="index.html">Главная</a>
+                        <a href="../pages/index.jsp">Главная</a>
                     </li>
                 </ul>
             </tr>
@@ -38,7 +38,7 @@
                 <td colspan="5"></td>
                 <td id="col_5" rowspan="8">
                     <canvas width="550" height="550" id="graphics">
-                        <img src="img/function.jpg" alt="function_graph">
+                        <img src="../img/function.jpg" alt="function_graph">
                     </canvas>
                 </td>
             </tr>
@@ -106,7 +106,7 @@
             <tr>
                 <td></td>
                 <td colspan="4">
-                    <a href="/history.jsp" class="btn">
+                    <a href="/views/history.jspry.jsp" class="btn">
                         Перейти к истории запросов
                     </a>
                 </td>

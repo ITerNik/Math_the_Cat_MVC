@@ -6,7 +6,6 @@ const inputWarningR: HTMLElement = document.querySelector('#invalid-r');
 const inputWarningX: HTMLElement = document.querySelector('#invalid-x');
 const inputForm : HTMLFormElement = document.querySelector('#input_form');
 
-
 type Input = HTMLInputElement | null
 
 const EMPTY_INPUT_WARN: string = 'Тлен и пустота не вариант';

@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Math the Cat MVC:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>Math the Cat MVC</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="Math_the_Cat_MVC-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="Math the Cat MVC:war exploded" />
+    </root>
+  </artifact>
+</component>

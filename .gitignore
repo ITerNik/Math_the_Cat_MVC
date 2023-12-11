@@ -2,7 +2,6 @@ target/
 **/src/main/**/*.js
 mvnw
 mvnw.cmd
-.gitignore
 
 ### IntelliJ IDEA ###
 .idea
@@ -36,3 +35,4 @@ build/
 ### Mac OS ###
 .DS_Store
 /.idea/
+/src/main/webapp/assets/

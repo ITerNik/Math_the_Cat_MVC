@@ -14,16 +14,16 @@
             <tr>
                 <ul class="nav_panel background_black">
                     <li>
-                        <a href="index.html">Math the Cat</a>
+                        <a href="../pages/index.jsp">Math the Cat</a>
                     </li>
                     <li>
                         <a href="history.jsp" class="active">История</a>
                     </li>
                     <li>
-                        <a href="contact.html">Контакты</a>
+                        <a href="../pages/contacts.jsp">Контакты</a>
                     </li>
                     <li>
-                        <a href="index.html">Главная</a>
+                        <a href="../pages/index.jsp">Главная</a>
                     </li>
                 </ul>
             </tr>

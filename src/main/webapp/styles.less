@@ -1,0 +1,403 @@
+// Variables
+
+@ivory: #FAF5E9;
+@sky-blue: #8ECAE6;
+@blue-green: #219EBC;
+@prussian-blue: #023047;
+@select-yellow: #FFB703;
+@ut-orange: #FB8500;
+
+@high-res-width: 1281px;
+
+// Mixins
+
+.base-font-style(@size) {
+    font-weight: bold;
+    font-size: @size;
+}
+
+.full-cover {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.empty-box(@color) {
+    border-radius: 10px;
+    border: solid 5px @color;
+    background: none;
+    color: @color;
+}
+
+.filled-box(@color) {
+    text-align: center;
+    color: @ivory;
+    background: @color;
+    border-radius: 10px;
+}
+
+// Background color classes
+
+.bg-dark {
+    background: @prussian-blue;
+}
+
+.bg-white {
+    background: @ivory;
+}
+
+.bg-blue {
+    background: @sky-blue;
+}
+
+.bg-ivory {
+    background: @ivory;
+}
+
+.bg-yellow {
+    background: @select-yellow;
+}
+
+// Base elements classes
+
+body {
+    margin: 0;
+    font-family: serif;
+}
+
+.container {
+    height: 100%;
+    max-width: @high-res-width;
+    padding: 0 15px;
+    margin: 0 auto;
+}
+
+// Header styling
+
+header .container {
+    padding: 0;
+}
+
+.page-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10% 0;
+    .base-font-style(18px);
+    color: @ivory;
+    z-index: 2;
+    position: relative;
+
+    h1 {
+        margin: 0;
+        font-size: 60px;
+    }
+
+    h2 {
+        margin: 15px 0px;
+        font-size: 30px;
+    }
+
+    hr {
+        width: 7%;
+        height: 4px;
+        background-color: @ivory;
+    }
+}
+
+.page-cover {
+    position: relative;
+    img {
+        .full-cover();
+        background: @sky-blue;
+        object-fit: cover;
+        z-index: 0;
+    }
+    .image-shading {
+        .full-cover();
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 1;
+    }
+}
+
+// Navigation bar styles
+
+.top-menu {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+
+    a {
+        display: block;
+        text-decoration: none;
+        padding: 10px 14px;
+        margin: 10px 6px;
+        .base-font-style(18px);
+        color: @ivory;
+        border-radius: 30px;
+        transition:.2s linear;
+        &:hover {
+            background: @select-yellow;
+            color: black;
+        }
+    }
+}
+
+.main-menu {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+}
+
+// Main body
+
+.main {
+    height: 80vh;
+}
+
+// Footer styling
+
+.license {
+    color: @ivory;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 4% 0;
+    h2 {
+        font-size: 22px;
+        text-align: center;
+        margin: 10px 0;
+    }
+}
+
+// Card layout styles
+
+.card-layout {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+.card-item {
+  border: 0px solid aqua;
+  margin: 2rem 0.5rem;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  flex: 1;
+  min-width: 290px;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+  &::before {
+      content: '';
+      .full-cover();
+      background: rgba(0, 0, 0, 0) linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.7) 80%);
+      z-index: 1;
+    }
+
+  .card-link {
+    .full-cover();
+    z-index: 3;
+  }
+
+  .card-cover {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    background: @ivory;
+    transition: transform 3s ease;
+    position: relative;
+    z-index: 0;
+  }
+  .text-wrapper {
+    position: absolute;
+    bottom: 0rem;
+    padding: 1rem;
+    color: white;
+    transition: background-color 1.5s ease;
+    z-index: 2;
+  }
+
+  .card-title {
+    transition: color 1s ease;
+    margin-bottom: .5rem;
+  }
+
+  .details-wrapper {
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 1.5s ease, opacity 1s ease;
+  }
+    &:hover .details-wrapper {
+      max-height: 20rem;
+      opacity: 1;
+    }
+
+    &:hover .text-wrapper {
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    &:hover .card-title {
+      color: @select-yellow;
+    }
+
+    &:hover .card-cover {
+      transform: scale(1.2);
+    }
+  .card-description {
+    font-weight: 300;
+  }
+}
+
+// Other pages
+
+.side-page-title {
+    padding: 7% 0;
+}
+
+// Math page
+
+.math-page-layout {
+    .container {
+        display: flex;
+    }
+    height: 100%;
+}
+
+// Control bar
+
+.control-side {
+    width: 40%;
+    display: grid;
+    grid-template-rows: 2fr 2fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr;
+    padding: 20px;
+}
+
+// R buttons
+
+.btn-bar {
+    grid-area: 1 / 1 / 2 / 3;
+    display: grid;
+    grid-template-areas: 1fr 2fr / repeat(5, 1fr);
+    gap: 20px;
+
+    * {
+        .base-font-style(26px);
+    }
+
+    h3 {
+        margin: 0;
+        grid-area: 1 / 1 / 1 / 6;
+        .filled-box(@blue-green);
+        padding: 15px 0;
+
+    }
+
+    button {
+        padding: 15px 0;
+        border-radius: 10px;
+        border: solid 5px @blue-green;
+        color: @blue-green;
+        background: none;
+        cursor: pointer;
+    }
+}
+
+// X&Y input areas
+
+.text-bar {
+    grid-area: 2 / 1 ;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+
+    * {
+        .base-font-style(22px);
+        box-sizing: border-box;
+    }
+
+    label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 75%;
+        .filled-box(@ut-orange);
+    }
+
+    input[type=text] {
+        .empty-box(@ut-orange);
+        text-align: center;
+        width: 20%;
+    }
+
+    .error {
+        width: 100%;
+    }
+}
+
+.submit-image {
+    grid-area: 2 / 2;
+    width: 100%;
+
+    input[type=image] {
+        width: 100%;
+    }
+}
+
+// Result table
+
+.recent-result {
+    grid-area: 3 / 1 / 4 / 3;
+    display: flex;
+    flex-flow: row wrap;
+    overflow: hidden;
+    text-align: center;
+    .empty-box(@blue-green);
+
+    .result-title {
+        padding: 15px 0;
+        background: @blue-green;
+        color: @ivory;
+        .base-font-style(26px);
+        margin: 0;
+        width: 100%;
+    }
+
+    .result-table {
+        background: none;
+        color: @blue-green;
+        width: 100%;
+    }
+}
+
+.show-history-btn {
+    .filled-box(@ut-orange);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .base-font-style(26px);
+    text-decoration: none;
+    grid-area: 4 / 1 / 5 / 3;
+    margin-top: 20px;
+}
+
+// Graphics side
+
+.graphics-side {
+    padding: 20px;
+    width: 60%;
+    canvas {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+
