@@ -4,9 +4,9 @@
 <html lang="en">
 <head>
     <title>Math the Cat</title>
-    <link rel="stylesheet/less" type="text/css" href="../styles.less" />
+    <link rel="stylesheet/less" type="text/css" href="${pageContext.request.contextPath}/static/styles.less" />
     <meta http-equiv='content-type' content='text/html;charset=utf-8' />
-    <script src="../ts/less.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/ts/less.js" type="text/javascript"></script>
 </head>
 <body>
 <header>

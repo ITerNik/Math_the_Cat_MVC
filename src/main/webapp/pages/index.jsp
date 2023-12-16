@@ -4,9 +4,9 @@
 <html lang="en">
 <head>
 	<title>Math the Cat</title>
-	<link rel="stylesheet/less" type="text/css" href="../styles.less" />
+	<link rel="stylesheet/less" type="text/css" href="${pageContext.request.contextPath}/static/styles.less" />
 	<meta http-equiv='content-type' content='text/html;charset=utf-8' />
-	<script src="../ts/less.js" type="text/javascript"></script>
+	<script src="${pageContext.request.contextPath}/ts/less.js" type="text/javascript"></script>
 </head>
 <body>
 <header>
@@ -19,7 +19,7 @@
 				<h2>Добро пожаловать!</h2>
 				<em>Вы умножаете рыбов?</em>
 			</div>
-			<img src="../assets/laptop_cat_full_width_low_res.jpg" alt="page-cover">
+			<img src="${pageContext.request.contextPath}/assets/laptop_cat_full_width_low_res.jpg" alt="page-cover">
 			<div class="image-shading" />
 		</div>
 	</div>
@@ -39,7 +39,7 @@
 		</div>
 		<div class="card-item">
 			<a href="${pageContext.request.contextPath}/math" class="card-link"></a>
-			<img src="../assets/laptop_cat_low_res.jpg"
+			<img src="${pageContext.request.contextPath}/assets/laptop_cat_low_res.jpg"
 				 alt="laptop_cat" class="card-cover">
 			<div class="text-wrapper">
 				<h2 class="card-title">Расчет попадания точки в график v2.0</h2>
@@ -50,7 +50,7 @@
 		</div>
 		<div class="card-item">
 			<a href="#" class="card-link"></a>
-			<img src="../assets/sleeping_cat_low_res.jpg"
+			<img src="${pageContext.request.contextPath}/assets/sleeping_cat_low_res.jpg"
 				 alt="sleeping_cat" class="card-cover">
 			<div class="text-wrapper">
 				<h2 class="card-title">Котьки усиленно трудятся над новинками</h2>
