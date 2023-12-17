@@ -292,6 +292,7 @@ header .container {
     display: grid;
     grid-template-areas: 1fr 2fr / repeat(5, 1fr);
     gap: 20px;
+    padding-bottom: 20px;;
 
     * {
         .base-font-style(26px);
@@ -305,6 +306,10 @@ header .container {
 
     }
 
+    .pressed {
+      .filled-box(@blue-green);
+    }
+
     button {
         padding: 15px 0;
         border-radius: 10px;
@@ -314,6 +319,7 @@ header .container {
         cursor: pointer;
     }
 }
+
 
 // X&Y input areas
 
@@ -326,6 +332,7 @@ header .container {
     * {
         .base-font-style(22px);
         box-sizing: border-box;
+        margin-bottom: 20px;
     }
 
     label {
@@ -333,18 +340,18 @@ header .container {
         justify-content: center;
         align-items: center;
         width: 75%;
-        .filled-box(@ut-orange);
+        .filled-box(@blue-green);
     }
 
     input[type=text] {
-        .empty-box(@ut-orange);
+        .empty-box(@blue-green);
         text-align: center;
         width: 20%;
     }
+}
 
-    .error {
-        width: 100%;
-    }
+.error {
+  background: @ut-orange !important;
 }
 
 .submit-image {
@@ -353,6 +360,10 @@ header .container {
 
     input[type=image] {
         width: 100%;
+        transition: scale ease .3s;
+        &:hover {
+          scale: 1.1;
+        }
     }
 }
 

@@ -6,7 +6,8 @@
     <title>Math the Cat</title>
     <link rel="stylesheet/less" type="text/css" href="${pageContext.request.contextPath}/static/styles.less" />
     <meta http-equiv='content-type' content='text/html;charset=utf-8' />
-    <script src="${pageContext.request.contextPath}/ts/less.js"></script>
+    <script src="${pageContext.request.contextPath}/static/ts/less.js"></script>
+    <script src="${pageContext.request.contextPath}/static/ts/validate-input.js" defer></script>
 </head>
 <body>
     <header>
@@ -16,41 +17,38 @@
                 <div class="side-page-title page-title">
                     <h1>Расчет попадания точки в график</h1>
                 </div>
-                <img src="../assets/laptop_cat_full_width_low_res.jpg" alt="page-cover">
+                <img src="${pageContext.request.contextPath}/static/assets/laptop_cat_full_width_low_res.jpg" alt="page-cover">
                 <div class="image-shading" />
             </div>
         </div>
     </header>
     <div class="main math-page-layout">
         <div class="container">
-            <form action="${pageContext.request.contextPath}/history" method="get"
-                  class="control-side">
+            <form id="math-form" action="${pageContext.request.contextPath}/throw" class="control-side">
                 <div class="btn-bar">
                     <h3 class="btn-title">
                         Тыкалки по R
                     </h3>
 
-                    <button>1</button>
-                    <button>2</button>
-                    <button>3</button>
-                    <button>4</button>
-                    <button>5</button>
+                    <button value="1" type="button">1</button>
+                    <button value="2" type="button">2</button>
+                    <button value="3" type="button">3</button>
+                    <button value="4" type="button">4</button>
+                    <button value="5" type="button">5</button>
+                    <input type="hidden" name="r" value="0" />
 
-                    <div class="error"></div>
                 </div>
                 <div class="text-bar">
                     <label for="x">Нацарапай число:</label>
                     <input type="text" placeholder="X"
-                        id="x" maxlength="1" />
-                    <div class="error"></div>
+                        id="x" maxlength="6" name="x" data-range="3"/>
 
                     <label for="y">Нацарапай число:</label>
                     <input type="text" placeholder="Y"
-                        id="y" maxlength="1" />
-                    <div class="error"></div>
+                        id="y" maxlength="6" name="y" data-range="5"/>
                 </div>
                 <div class="submit-image">
-                    <input type="image" src="../assets/table_cat_colored.png"
+                    <input type="image" src="${pageContext.request.contextPath}/static/assets/table_cat_colored.png"
                      alt="submit_table_cat">
                 </div>
                 <div class="recent-result">
@@ -66,9 +64,7 @@
                 </a>
             </form>
             <div class="graphics-side">
-                <canvas id="math-area">
-                    <img src="../assets/sleeping_cat_low_res.jpg" alt="unavailable_plugin" />
-                </canvas>
+                <canvas id="math-area">Unsupported canvas view</canvas>
                 <script>
                     const area = document.querySelector('#math-area');
                     const ctx = area.getContext('2d');

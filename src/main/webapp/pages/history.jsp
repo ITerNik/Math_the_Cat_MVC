@@ -6,7 +6,7 @@
     <title>Math the Cat</title>
     <link rel="stylesheet/less" type="text/css" href="${pageContext.request.contextPath}/static/styles.less" />
     <meta http-equiv='content-type' content='text/html;charset=utf-8' />
-    <script src="${pageContext.request.contextPath}/ts/less.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/static/ts/less.js" type="text/javascript"></script>
 </head>
 <body>
     <header>
@@ -16,7 +16,7 @@
                 <div class="side-page-title page-title">
                     <h1>История запросов</h1>
                 </div>
-                <img src="../assets/laptop_cat_full_width_low_res.jpg" alt="page-cover">
+                <img src="${pageContext.request.contextPath}/static/assets/laptop_cat_full_width_low_res.jpg" alt="page-cover">
                 <div class="image-shading" />
             </div>
         </div>
