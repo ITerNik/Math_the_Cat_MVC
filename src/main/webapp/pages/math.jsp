@@ -8,6 +8,7 @@
     <meta http-equiv='content-type' content='text/html;charset=utf-8' />
     <script src="${pageContext.request.contextPath}/static/ts/less.js"></script>
     <script src="${pageContext.request.contextPath}/static/ts/validate-input.js" defer></script>
+    <script src="${pageContext.request.contextPath}/static/ts/graphics.js" defer></script>
 </head>
 <body>
     <header>
@@ -18,7 +19,7 @@
                     <h1>Расчет попадания точки в график</h1>
                 </div>
                 <img src="${pageContext.request.contextPath}/static/assets/laptop_cat_full_width_low_res.jpg" alt="page-cover">
-                <div class="image-shading" />
+                <div class="image-shading"></div>
             </div>
         </div>
     </header>
@@ -27,7 +28,7 @@
             <form id="math-form" action="${pageContext.request.contextPath}/throw" class="control-side">
                 <div class="btn-bar">
                     <h3 class="btn-title">
-                        Тыкалки по R
+                        Тыкалки по R:
                     </h3>
 
                     <button value="1" type="button">1</button>
@@ -62,13 +63,7 @@
                 </a>
             </form>
             <div class="graphics-side">
-                <canvas id="math-area">Unsupported canvas view</canvas>
-                <script>
-                    const area = document.querySelector('#math-area');
-                    const ctx = area.getContext('2d');
-                    ctx.fillStyle = '#219EBC';
-                    ctx.fillRect(0, 0, area.width, area.height);
-                </script>
+                <canvas id="math-area" width="2000" height="2000">Unsupported canvas view</canvas>
             </div>
         </div>
     </div>

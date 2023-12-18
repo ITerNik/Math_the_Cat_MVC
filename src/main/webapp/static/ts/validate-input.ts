@@ -58,7 +58,7 @@ function handleInput(input : HTMLInputElement, label: HTMLElement) : void {
         hideWarning(label, MESSAGES.get(input.name).default)
         return
     }
-    const num = parseInt(input.value) // TODO: regex instead of parse
+    const num = parseInt(input.value) // TODO: regex instead of parse + parse commas
     if (isNaN(num)) {
         showWarning(label, MESSAGES.get(input.name).nan)
     } else if (Math.abs(num) >= parseInt(input.dataset.range)) {
@@ -74,10 +74,14 @@ function addClickTrigger(btn: HTMLButtonElement) : void{
         if (activeButton) activeButton.classList.remove('pressed')
         btn.classList.add('pressed')
         activeButton = btn
+
         if (!valid['r']) {
             valid['r'] = true;
             hideWarning(labelR, MESSAGES.get('r').default)
         }
+
+        r = parseInt(btn.value) * gridSize
+        drawArea()
     }
 }
 
