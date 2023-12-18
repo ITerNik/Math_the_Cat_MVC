@@ -1,7 +1,34 @@
-const listElement: HTMLElement = document.getElementById('history-list');
+const listElements: NodeListOf<HTMLElement> = document.querySelectorAll('.toggle-header')
 
-render();
+window.onload = () => {
+    listElements.forEach((elem : HTMLElement) => {
+        addToggleTrigger(elem)
+    })
+}
 
+function addToggleTrigger(elem: HTMLElement) {
+    elem.onclick = (event) => {
+        if (elem.classList.contains('toggled')) {
+            elem.classList.remove('toggled')
+            showToggled(elem)
+        } else {
+            elem.classList.add('toggled')
+            hideToggled(elem)
+        }
+    }
+}
+
+function showToggled(header: HTMLElement) {
+    const body = header.nextElementSibling as HTMLElement;
+    body.classList.remove('visible')
+}
+
+function hideToggled(header: HTMLElement) {
+    const body = header.nextElementSibling as HTMLElement;
+    body.classList.add('visible')
+}
+
+/*
 function render(): void {
     const listItems: NodeListOf<HTMLElement> = listElement.querySelectorAll('li');
 
@@ -28,4 +55,4 @@ function toggleContent(item: HTMLElement, action: string) {
         content.classList.remove('hidden');
     }
     header.innerHTML = action;
-}
+}*/

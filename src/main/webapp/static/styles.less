@@ -25,7 +25,8 @@
 }
 
 .empty-box(@color) {
-    border-radius: 10px;
+  text-align: center;
+  border-radius: 10px;
     border: solid 5px @color;
     background: none;
     color: @color;
@@ -280,7 +281,7 @@ header .container {
 .control-side {
     width: 40%;
     display: grid;
-    grid-template-rows: 2fr 2fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 150px 100px;
     grid-template-columns: 2fr 1fr;
     padding: 20px;
 }
@@ -290,7 +291,8 @@ header .container {
 .btn-bar {
     grid-area: 1 / 1 / 2 / 3;
     display: grid;
-    grid-template-areas: 1fr 2fr / repeat(5, 1fr);
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: repeat(5, 1fr);
     gap: 20px;
     padding-bottom: 20px;;
 
@@ -413,6 +415,90 @@ header .container {
         width: 100%;
         height: 100%;
     }
+}
+
+// History page
+
+.history-page-layout {
+  .container {
+    display: grid;
+    grid-template-columns: 70% 1fr;
+    grid-template-rows: 150px 130px 1fr;
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  padding-top: 50px;
+  height: 100%;
+}
+
+.new-result {
+  .recent-result();
+  grid-area: 1 / 1;
+}
+
+.back-home-image {
+   img {
+     height: 100%;
+     transition: scale ease .3s;
+     &:hover {
+       scale: 1.1;
+     }
+   }
+  justify-self: center;
+}
+
+.list-title {
+  grid-area: 2 / 1 / 2 / 3;
+  .filled-box(@ut-orange);
+  .base-font-style(28px);
+  padding: 25px 0;
+}
+
+.result-list {
+  grid-area: 3 / 1 / 3 / 3;
+  list-style: none;
+  padding: 0;
+  h4 {
+    .empty-box(@prussian-blue);
+    width: 100%;
+    .base-font-style(26px);
+    padding: 10px;
+  }
+  li {
+    padding-bottom: 20px;
+  }
+}
+
+.toggle-header {
+  .filled-box(@blue-green);
+  cursor: pointer;
+  padding: 20px;
+  .base-font-style(26px);
+  h3 {
+    margin: 0;
+  }
+}
+
+.toggle-body {
+  .empty-box(@prussian-blue);
+  font-weight: bold;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height .5s ease, opacity .3s ease;
+}
+
+.toggled {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.visible {
+  max-height: 20rem;
+  opacity: 1;
+  transition: max-height .5s ease, opacity .3s ease;
 }
 
 

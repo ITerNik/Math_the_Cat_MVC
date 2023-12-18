@@ -12,8 +12,8 @@ let activeButton : HTMLButtonElement = null
 
 interface ErrorMessage {
     empty: string,
-    outRange: string,
-    nan: string,
+    outRange?: string,
+    nan?: string,
     default: string
 }
 
@@ -30,8 +30,6 @@ const MESSAGES = new Map<string, ErrorMessage>([
         default: 'Нацарапай число:'
     }], ['r', {
         empty: 'Выбор сложен, но необходим',
-        outRange: 'Вышло за пределы',
-        nan: 'Не похоже на число',
         default: 'Тыкалки по R:'
     }]
 ])

@@ -54,9 +54,7 @@
                 <div class="recent-result">
                     <h3 class="result-title">Последний запрос:</h3>
                     <table class="result-table">
-                        <td>
-                            <em>Здесь пока ничего нет</em>
-                        </td>
+                        <jsp:include page="${pageContext.request.contextPath}/components/area-result.jsp" />
                     </table>
                 </div>
                 <a class="show-history-btn" href="${pageContext.request.contextPath}/history">

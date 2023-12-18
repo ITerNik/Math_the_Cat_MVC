@@ -98,7 +98,7 @@
                     <div class="recent_result">
                         <h2>Последний запрос:</h2>
                         <table id="result-table">
-                            <jsp:include page="area-result.jsp" />
+                            <jsp:include page="../components/area-result.jsp" />
                         </table>
                     </div>
                 </td>
