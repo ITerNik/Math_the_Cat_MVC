@@ -33,7 +33,7 @@
                 </table>
             </div>
             <a href="/math" class="back-home-image">
-                <img src="${pageContext.request.contextPath}/static/assets/table_cat_transparent.png"/>
+                <img src="${pageContext.request.contextPath}/static/assets/Dreaming_cat_want_home.png"/>
             </a>
             <h2 class="list-title">Прошлое, которого не вернуть:</h2>
             <ul class="result-list">

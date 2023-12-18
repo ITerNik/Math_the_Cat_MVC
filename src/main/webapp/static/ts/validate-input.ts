@@ -48,7 +48,7 @@ window.onload = () => {
     buttons.forEach((btn: HTMLButtonElement) => {
         addClickTrigger(btn)
     })
-    inputY.oninput = () => handleInput(inputY, labelY)
+    inputY.oninput = () =>  handleInput(inputY, labelY)
     inputX.oninput = () => handleInput(inputX, labelX)
 }
 
@@ -58,7 +58,7 @@ function handleInput(input : HTMLInputElement, label: HTMLElement) : void {
         hideWarning(label, MESSAGES.get(input.name).default)
         return
     }
-    const num = parseInt(input.value) // TODO: regex instead of parse + parse commas
+    const num = parseFloat(input.value) // TODO: regex instead of parse + parse commas
     if (isNaN(num)) {
         showWarning(label, MESSAGES.get(input.name).nan)
     } else if (Math.abs(num) >= parseInt(input.dataset.range)) {
@@ -67,6 +67,7 @@ function handleInput(input : HTMLInputElement, label: HTMLElement) : void {
         hideWarning(label, MESSAGES.get(input.name).default)
         valid[input.name] = true
     }
+    drawPaw(parseFloat(inputX.value) * gridSize, parseFloat(inputY.value)  * -gridSize)
 }
 
 function addClickTrigger(btn: HTMLButtonElement) : void{
@@ -80,7 +81,7 @@ function addClickTrigger(btn: HTMLButtonElement) : void{
             hideWarning(labelR, MESSAGES.get('r').default)
         }
 
-        r = parseInt(btn.value) * gridSize
+        r = parseInt(btn.value)
         drawArea()
     }
 }
