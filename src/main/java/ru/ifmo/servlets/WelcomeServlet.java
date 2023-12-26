@@ -10,6 +10,6 @@ import java.io.IOException;
 public class WelcomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect("/home");
+        resp.sendRedirect(getServletContext().getContextPath() + "/home");
     }
 }

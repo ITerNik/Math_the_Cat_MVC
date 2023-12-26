@@ -15,7 +15,7 @@ public class ControllerServlet extends HttpServlet {
                 req.getParameter("r") != null &&
                 !req.getParameter("y").isEmpty() &&
                 !req.getParameter("x").isEmpty()) {
-            req.getRequestDispatcher("/area").forward(req, resp);
+            req.getRequestDispatcher( "/area").forward(req, resp);
         }
     }
 }

@@ -4,6 +4,8 @@ const buttons: NodeListOf<HTMLButtonElement> = document.querySelector<HTMLElemen
 const inputY: HTMLInputElement = document.querySelector('#y')
 const inputX: HTMLInputElement = document.querySelector('#x')
 
+const path = document.querySelector<HTMLElement>('#contextPathHolder').dataset.contextpath
+
 const labelR: HTMLElement = document.querySelector('.btn-title')
 const labelX: HTMLElement = document.querySelector('label[for=x]')
 const labelY: HTMLElement = document.querySelector('label[for=y]')
@@ -94,6 +96,10 @@ function validateInput(event: SubmitEvent): void {
     if (!valid['r']) showWarning(labelR, MESSAGES.get('r').empty)
 
     if (valid['r'] && valid[inputX.name] && valid[inputY.name]) {
+
+        $.post(path + '/images',
+            { image : area.toDataURL()}
+        )
         mathForm.elements['r'].value = activeButton.value
         mathForm.submit()
     }

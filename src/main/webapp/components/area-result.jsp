@@ -12,8 +12,8 @@
     <th>X</th> <th>Y</th> <th>R</th> <th>Статус</th> <th>Время</th> <th>Скорость</th>
   </tr>
   <tr>
-    <td><% out.print(last.getX()); %></td><td><% out.print(last.getY()); %></td>
-    <td><% out.print(last.getR()); %></td><td><% out.print(last.isStatus() ? "Попал" : "Мимо"); %></td>
-    <td><% out.print(last.getTime()); %></td><td><% out.print(last.getSpeed()); %> мс</td>
+    <td><%= last.getX() %></td><td><%= last.getY() %></td>
+    <td><%= last.getR() %></td><td><%= last.isStatus() ? "Попал" : "Мимо" %></td>
+    <td><%= last.getTime() %></td><td><%= last.getSpeed() %> мс</td>
   </tr>
 <% } %>

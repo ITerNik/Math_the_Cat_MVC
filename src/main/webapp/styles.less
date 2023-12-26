@@ -482,12 +482,24 @@ header .container {
 
 .toggle-body {
   .empty-box(@prussian-blue);
+  text-align: end;
   font-weight: bold;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  gap: 1cm;
+  align-items: center;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
   max-height: 0;
   opacity: 0;
   transition: max-height .5s ease, opacity .3s ease;
+  img {
+    max-height: 15em;
+    border: solid @sky-blue 4px;
+    border-radius: 10px;
+    margin: 5px;
+  }
 }
 
 .toggled {

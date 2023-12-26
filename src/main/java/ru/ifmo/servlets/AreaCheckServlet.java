@@ -27,23 +27,21 @@ public class AreaCheckServlet extends HttpServlet {
         boolean flag = checkPoint(x, y, r);
         Query query = new Query(x, y, r, flag, System.currentTimeMillis() - start);
         history.add(query);
-        resp.sendRedirect("/history");
+        resp.sendRedirect(getServletContext().getContextPath() + "/history");
     }
 
     private boolean checkPoint(double x, double y, double r) {
         if (x > 0) {
-            if (y < 0 && y > r) {
-                return y >= x - r;
+            if (y > 0 && y < r) {
+                return x < r;
             } else {
                 return false;
             }
         } else {
-            if (y > 0 && y < r) {
-                return x * x + y * y <= r * r;
-            } else if (y < 0 && y > r) {
-                return 2 * x >= -r;
+            if (y < 0) {
+                return x * x + y * y < r * r;
             } else {
-                return false;
+                return 2 * y < 2 * x + r;
             }
         }
     }

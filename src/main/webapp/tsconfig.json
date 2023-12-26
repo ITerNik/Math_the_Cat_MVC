@@ -3,6 +3,6 @@
     "target": "ES2022"
   },
   "include": [
-    "static/ts/*.ts"
+    "ts/*.ts"
   ]
 }

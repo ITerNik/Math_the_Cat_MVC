@@ -24,6 +24,16 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>images</servlet-name>
+        <servlet-class>ru.ifmo.servlets.ImageHandlerServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>images</servlet-name>
+        <url-pattern>/images</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>home</servlet-name>
         <jsp-file>/pages/index.jsp</jsp-file>
     </servlet>
@@ -45,7 +55,7 @@
 
     <servlet-mapping>
         <servlet-name>default</servlet-name>
-        <url-pattern>/static/*</url-pattern>
+        <url-pattern>/*</url-pattern>
     </servlet-mapping>
 
     <servlet>

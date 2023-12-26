@@ -35,4 +35,4 @@ build/
 ### Mac OS ###
 .DS_Store
 /.idea/
-/src/main/webapp/static/assets/
+/src/main/webapp/assets/

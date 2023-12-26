@@ -7,9 +7,10 @@ const numLines: number = 11
 
 const gridSize: number = area.width / numLines
 
-const img = new Image()
-img.src = '/static/assets/footprint.png'
+const contextPath = document.querySelector<HTMLElement>('#contextPathHolder').dataset.contextpath
 
+const img = new Image()
+img.src =  contextPath + '/assets/footprint.png'
 
 let r : number =  0
 

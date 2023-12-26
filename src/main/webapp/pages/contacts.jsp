@@ -4,9 +4,9 @@
 <html lang="en">
 <head>
     <title>Math the Cat</title>
-    <link rel="stylesheet/less" type="text/css" href="${pageContext.request.contextPath}/static/styles.less" />
+    <link rel="stylesheet/less" type="text/css" href="${pageContext.request.contextPath}/styles.less" />
     <meta http-equiv='content-type' content='text/html;charset=utf-8' />
-    <script src="${pageContext.request.contextPath}/static/ts/less.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/ts/less.js" type="text/javascript"></script>
 </head>
 <body>
 <header>
@@ -16,8 +16,8 @@
             <div class="side-page-title page-title">
                 <h1>Контакты</h1>
             </div>
-            <img src="${pageContext.request.contextPath}/static/assets/laptop_cat_full_width_low_res.jpg" alt="page-cover">
-            <div class="image-shading" />
+            <img src="${pageContext.request.contextPath}/assets/laptop_cat_full_width_low_res.jpg" alt="page-cover">
+            <div class="image-shading"></div>
         </div>
     </div>
 </header>
