@@ -13,6 +13,11 @@
         <element id="directory" name="classes">
           <element id="module-output" name="Math the Cat MVC" />
         </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: org.opentest4j:opentest4j:1.2.0" />
+          <element id="library" level="project" name="Maven: org.junit.platform:junit-platform-commons:1.8.2" />
+          <element id="library" level="project" name="Maven: org.apiguardian:apiguardian-api:1.1.2" />
+        </element>
       </element>
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/target/Math_the_Cat_MVC-1.0-SNAPSHOT/META-INF/MANIFEST.MF" />

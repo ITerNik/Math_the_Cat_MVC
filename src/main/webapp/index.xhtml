@@ -1,0 +1,38 @@
+<ui:composition template="templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:param name="homeLink" value="active"/>
+    <ui:define name="page-cover">
+        <div class="page-title">
+            <h1>Math the Cat</h1>
+            <hr/>
+            <h2>Добро пожаловать!</h2>
+            <em>Вы умножаете рыбов?</em>
+        </div>
+    </ui:define>
+    <ui:define name="main-body">
+        <div class="container card-layout">
+            <ui:include src="templates/card-item.xhtml">
+                <ui:param name="src" value="/assets/book_coffee_cat_low_res.jpg"/>
+                <ui:param name="path" value="/math"/>
+                <ui:param name="title" value="Расчет попадания точки в график v1.0"/>
+                <ui:param name="description"
+                          value="Определить принадлежность точки заданной области по ее координатам. С использованием базового HTML, CSS и JS"/>
+            </ui:include>
+            <ui:include src="templates/card-item.xhtml">
+                <ui:param name="src" value="/assets/laptop_cat_full_width_low_res.jpg"/>
+                <ui:param name="path" value="/math"/>
+                <ui:param name="title" value="Расчет попадания точки в график v2.0"/>
+                <ui:param name="description"
+                          value="Определить принадлежность точки заданной области по ее координатам. Улучшенная версия с добавлением JSP и Canvas"/>
+            </ui:include>
+            <ui:include src="templates/card-item.xhtml">
+                <ui:param name="src" value="/assets/sleeping_cat_low_res.jpg"/>
+                <ui:param name="path" value="/math"/>
+                <ui:param name="title" value="Расчет попадания точки в график v3.0"/>
+                <ui:param name="description"
+                          value="Определить принадлежность точки заданной области по ее координатам. Улучшенная версия с добавлением JSP и Canvas"/>
+            </ui:include>
+        </div>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,54 @@
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                template="templates/layout.xhtml">
+    <ui:define name="scripts">
+        <link id="contextPathHolder" data-contextPath="#{facesContext.externalContext.requestContextPath}"/>
+        <h:outputScript library="ts" name="graphics.js"/>
+        <h:outputScript library="ts" name="jquery-3.7.1.min.js"/>
+        <h:outputScript library="ts" name="validate-input.js"/>
+    </ui:define>
+    <ui:define name="main-body">
+        <div class="container math-page-layout">
+            <form id="math-form" action="#{facesContext.externalContext.requestContextPath}/throw" class="control-side">
+                <div class="btn-bar">
+                    <h3 class="btn-title">
+                        Тыкалки по R:
+                    </h3>
+
+                    <button value="1" type="button">1</button>
+                    <button value="2" type="button">2</button>
+                    <button value="3" type="button">3</button>
+                    <button value="4" type="button">4</button>
+                    <button value="5" type="button">5</button>
+                    <input type="hidden" name="r" value="0"></input>
+
+                </div>
+                <div class="text-bar">
+                    <label for="x">Нацарапай число:</label>
+                    <input type="text" placeholder="X"
+                           id="x" maxlength="6" name="x" data-range="3"></input>
+
+                    <label for="y">Нацарапай число:</label>
+                    <input type="text" placeholder="Y"
+                           id="y" maxlength="6" name="y" data-range="5"></input>
+                </div>
+                <div class="submit-image">
+                    <input type="image" src="#{facesContext.externalContext.requestContextPath}/assets/table_cat_colored.png"
+                           alt="submit_table_cat"></input>
+                </div>
+                <div class="recent-result">
+                    <ui:include src="templates/area-result.xhtml">
+                        <ui:param name="resultTitle" value="Последний запрос:"/>
+                    </ui:include>
+                </div>
+                <a class="show-history-btn" href="#{facesContext.externalContext.requestContextPath}/pages/history.xhtml">
+                    Перейти к истории запросов
+                </a>
+            </form>
+            <div class="graphics-side">
+                <canvas id="math-area" width="2000" height="2000">Unsupported canvas view</canvas>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

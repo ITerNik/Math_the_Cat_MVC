@@ -1,8 +1,11 @@
 package ru.ifmo.entities;
 
+import lombok.Data;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+@Data
 public class Query {
     private double x, y;
     private int r;
@@ -21,32 +24,7 @@ public class Query {
         this.speed = speed;
         this.date = LocalDateTime.now();
     }
-
-    public double getX() {
-        return x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public int getR() {
-        return r;
-    }
-
-    public LocalDateTime getDate() {
-        return date;
-    }
-
     public String getTime() {
         return date.format(format);
-    }
-
-    public long getSpeed() {
-        return speed;
-    }
-
-    public boolean isStatus() {
-        return status;
     }
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:body>
+        <div class="card-item">
+            <a href="#{facesContext.externalContext.requestContextPath.concat(path)}" class="card-link"/>
+            <img src="#{facesContext.externalContext.requestContextPath.concat(src)}"
+                 alt="book_coffee_cat" class="card-cover"/>
+            <div class="text-wrapper">
+                <h2 class="card-title">#{title}</h2>
+                <div class="details-wrapper">
+                    <p class="card-description">#{description}</p>
+                </div>
+            </div>
+        </div>
+</h:body>
+
+</html>

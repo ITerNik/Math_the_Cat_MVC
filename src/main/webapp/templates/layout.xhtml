@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Math the cat</title>
+        <meta http-equiv='content-type' content='text/html;charset=utf-8' />
+        <link rel="stylesheet/less"
+              href="#{facesContext.externalContext.requestContextPath}/resources/css/styles.less"/>
+        <h:outputScript library="ts" name="less.js"/>
+    </h:head>
+    <h:body>
+        <header>
+            <div class="container">
+                <nav class="top-menu bg-dark">
+                    <a href="#{facesContext.externalContext.requestContextPath}/">Math the Cat</a>
+                    <ul class="main-menu">
+                        <li><a class="#{homeLink}" href="#{facesContext.externalContext.requestContextPath}/">Главная</a></li>
+                        <li><a class="#{historyLink}" href="#{facesContext.externalContext.requestContextPath}/history.xhtml">История</a></li>
+                        <li><a class="#{contatcsLink}" href="#{facesContext.externalContext.requestContextPath}/contacts.xhtml">Контакты</a></li>
+                    </ul>
+                </nav>
+                <div class="page-cover bg-blue">
+                    <ui:insert name="page-cover">
+                        <div class="side-page-title page-title">
+                            <h1>Math the Cat</h1>
+                        </div>
+                    </ui:insert>
+                    <img src="#{facesContext.externalContext.requestContextPath}/assets/laptop_cat_full_width_low_res.jpg"
+                         alt="page-cover"/>
+                    <div class="image-shading" />
+                </div>
+            </div>
+        </header>
+        <main>
+            <ui:insert name="main-body" />
+        </main>
+        <footer class="bg-dark">
+            <div class="container">
+                <div class="license">
+                    <h2>Math the Cat</h2>
+                    © 2023 Терехин Никита | Все права защищены
+                </div>
+            </div>
+        </footer>
+    </h:body>
+    <ui:insert name="scripts"/>
+</html>
+

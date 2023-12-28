@@ -1,0 +1,52 @@
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns="http://www.w3.org/1999/xhtml"
+                template="templates/layout.xhtml">
+    <ui:param name="historyLink" value="active"/>
+    <ui:define name="scripts">
+        <h:outputScript library="ts" name="list-toggling.js"/>
+        <link id="contextPathHolder" data-contextPath="#{facesContext.externalContext.requestContextPath}"/>
+    </ui:define>
+    <ui:define name="page-cover">
+        <div class="page-title side-page-title">
+            <h1>Контакты</h1>
+        </div>
+    </ui:define>
+    <ui:define name="main-body">
+        <div class="container history-page-layout">
+            <div class="new-result">
+                <ui:include src="templates/area-result.xhtml">
+                    <ui:param name="resultTitle" value="Новый запрос:"/>
+                </ui:include>
+            </div>
+            <a href="#{facesContext.externalContext.requestContextPath}/math" class="back-home-image">
+                <img src="#{facesContext.externalContext.requestContextPath}/assets/Dreaming_cat_want_home.png"
+                     alt="go-home-image"/>
+            </a>
+            <h2 class="list-title">Прошлое, которого не вернуть:</h2>
+            <ul class="result-list">
+                <ui:repeat value="#{repositoryManager.queries}" var="query">
+                    <li>
+                        <div class="toggle-header">
+                            <h3>Попытка №1</h3>
+                        </div>
+                        <div class="hidden toggle-body">
+                            <div>
+                                <p>Координата X: #{query.x}</p>
+                                <p>Координата Y: #{query.y}</p>
+                                <p>Координата R: #{query.r} </p>
+                                <p>Статус: #{query.status}</p>
+                                <p>Время отправки: #{query.date} </p>
+                                <p>Время работы: #{query.speed} мс</p>
+                            </div>
+                            <img src="#{facesContext.externalContext.requestContextPath}/assets/sleeping_cat_low_res.jpg"
+                                 alt="area-image"/>
+                        </div>
+                    </li>
+                </ui:repeat>
+            </ul>
+
+            <!--<li><h4>Oстались только пустота и тлен...</h4></li>-->
+        </div>
+    </ui:define>
+</ui:composition>
