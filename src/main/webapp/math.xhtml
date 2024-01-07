@@ -10,17 +10,28 @@
     </ui:define>
     <ui:define name="main-body">
         <div class="container math-page-layout">
-            <form id="math-form" action="#{facesContext.externalContext.requestContextPath}/throw" class="control-side">
+            <form id="math-form" action="#{facesContext.externalContext.requestContextPath}/history.xhtml" class="control-side">
                 <div class="btn-bar">
                     <h3 class="btn-title">
                         Тыкалки по R:
                     </h3>
 
-                    <button value="1" type="button">1</button>
+                    <h:selectBooleanCheckbox inlineStyle="pressed"/>
+                    <h:selectBooleanCheckbox />
+                    <h:selectBooleanCheckbox />
+                    <h:selectBooleanCheckbox />
+                    <h:selectBooleanCheckbox />
+                    <h:selectBooleanCheckbox />
+                    <h:selectBooleanCheckbox />
+                    <h:selectBooleanCheckbox />
+                    <h:selectBooleanCheckbox />
+
+                    <!--<button value="1" type="button">1</button>
                     <button value="2" type="button">2</button>
                     <button value="3" type="button">3</button>
                     <button value="4" type="button">4</button>
-                    <button value="5" type="button">5</button>
+                    <button value="5" type="button">5</button>-->
+
                     <input type="hidden" name="r" value="0"></input>
 
                 </div>
@@ -32,17 +43,17 @@
                     <label for="y">Нацарапай число:</label>
                     <input type="text" placeholder="Y"
                            id="y" maxlength="6" name="y" data-range="5"></input>
-                </div>
-                <div class="submit-image">
-                    <input type="image" src="#{facesContext.externalContext.requestContextPath}/assets/table_cat_colored.png"
-                           alt="submit_table_cat"></input>
+                    <div class="submit-image">
+                        <input type="image" src="#{facesContext.externalContext.requestContextPath}/assets/table_cat_colored.png"
+                               alt="submit_table_cat"></input>
+                    </div>
                 </div>
                 <div class="recent-result">
                     <ui:include src="templates/area-result.xhtml">
                         <ui:param name="resultTitle" value="Последний запрос:"/>
                     </ui:include>
                 </div>
-                <a class="show-history-btn" href="#{facesContext.externalContext.requestContextPath}/pages/history.xhtml">
+                <a class="show-history-btn" href="#{facesContext.externalContext.requestContextPath}/history.xhtml">
                     Перейти к истории запросов
                 </a>
             </form>

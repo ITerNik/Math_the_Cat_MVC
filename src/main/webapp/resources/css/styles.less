@@ -7,8 +7,6 @@
 @select-yellow: #FFB703;
 @ut-orange: #FB8500;
 
-@high-res-width: 1281px;
-
 // Mixins
 
 .base-font-style(@size) {
@@ -70,7 +68,6 @@ body {
 
 .container {
     height: 100%;
-    max-width: @high-res-width;
     padding: 0 15px;
     margin: 0 auto;
 }
@@ -277,19 +274,19 @@ main {
 
 .control-side {
     width: 40%;
-    display: grid;
-    grid-template-rows: 170px 170px 150px 100px;
-    grid-template-columns: 2fr 1fr;
+    display: flex;
+    flex-flow: row wrap;
     padding: 20px;
 }
 
 // R buttons
 
 .btn-bar {
-    grid-area: 1 / 1 / 2 / 3;
+    width: 60%;
+    background: lightgreen;
     display: grid;
-    grid-template-rows: 1fr 1fr;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     padding-bottom: 20px;
 
@@ -299,7 +296,7 @@ main {
 
     h3 {
         margin: 0;
-        grid-area: 1 / 1 / 1 / 6;
+        grid-area: 1 / 1 / 1 / 4;
         .filled-box(@blue-green);
         padding: 15px 0;
 
@@ -323,6 +320,8 @@ main {
 // X&Y input areas
 
 .text-bar {
+    width: 40%;
+    background: pink;
     grid-area: 2 / 1 ;
     display: flex;
     flex-flow: row wrap;
@@ -369,6 +368,7 @@ main {
 // Result table
 
 .recent-result {
+    width: 100%;
     grid-area: 3 / 1 / 4 / 3;
     display: flex;
     flex-flow: row wrap;
@@ -393,6 +393,7 @@ main {
 }
 
 .show-history-btn {
+  width: 100%;
     .filled-box(@ut-orange);
     display: flex;
     align-items: center;
@@ -488,10 +489,12 @@ main {
   opacity: 0;
   transition: max-height .5s ease, opacity .3s ease;
   img {
-    max-height: 15em;
+    max-height: 0;
+    opacity: 0;
     border: solid @sky-blue 4px;
     border-radius: 10px;
     margin: 5px;
+    transition: inherit;
   }
 }
 
@@ -504,6 +507,11 @@ main {
   max-height: 20rem;
   opacity: 1;
   transition: max-height .5s ease, opacity .3s ease;
+  img {
+    max-height: 15em;
+    opacity: 1;
+    transition: inherit;
+  }
 }
 
 
