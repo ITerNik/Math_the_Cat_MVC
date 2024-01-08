@@ -10,42 +10,40 @@
     </ui:define>
     <ui:define name="main-body">
         <div class="container math-page-layout">
-            <form id="math-form" action="#{facesContext.externalContext.requestContextPath}/history.xhtml" class="control-side">
-                <div class="btn-bar">
-                    <h3 class="btn-title">
-                        Тыкалки по R:
-                    </h3>
+            <form id="math-form" action="#{facesContext.externalContext.requestContextPath}/history.xhtml"
+                  class="control-side">
+                <div class="control-bar">
+                    <div class="btn-bar">
+                        <h3 class="btn-title">
+                            Тыкалки по X:
+                        </h3>
 
-                    <h:selectBooleanCheckbox inlineStyle="pressed"/>
-                    <h:selectBooleanCheckbox />
-                    <h:selectBooleanCheckbox />
-                    <h:selectBooleanCheckbox />
-                    <h:selectBooleanCheckbox />
-                    <h:selectBooleanCheckbox />
-                    <h:selectBooleanCheckbox />
-                    <h:selectBooleanCheckbox />
-                    <h:selectBooleanCheckbox />
+                        <label> <h:selectBooleanCheckbox/> -2 </label>
+                        <label> <h:selectBooleanCheckbox/> -1,5 </label>
+                        <label> <h:selectBooleanCheckbox/> -1 </label>
+                        <label> <h:selectBooleanCheckbox/> -0,5 </label>
+                        <label> <h:selectBooleanCheckbox/> 0 </label>
+                        <label> <h:selectBooleanCheckbox/> 0,5 </label>
+                        <label> <h:selectBooleanCheckbox/> 1 </label>
+                        <label> <h:selectBooleanCheckbox/> 1,5 </label>
+                        <label> <h:selectBooleanCheckbox/> 2 </label>
 
-                    <!--<button value="1" type="button">1</button>
-                    <button value="2" type="button">2</button>
-                    <button value="3" type="button">3</button>
-                    <button value="4" type="button">4</button>
-                    <button value="5" type="button">5</button>-->
+                        <input type="hidden" name="r" value="0"/>
 
-                    <input type="hidden" name="r" value="0"></input>
+                    </div>
+                    <div class="text-bar">
+                        <label for="x">Нацарапай число:</label>
+                        <input type="text" placeholder="R"
+                               id="x" maxlength="6" name="x" data-range="3"/>
 
-                </div>
-                <div class="text-bar">
-                    <label for="x">Нацарапай число:</label>
-                    <input type="text" placeholder="X"
-                           id="x" maxlength="6" name="x" data-range="3"></input>
-
-                    <label for="y">Нацарапай число:</label>
-                    <input type="text" placeholder="Y"
-                           id="y" maxlength="6" name="y" data-range="5"></input>
-                    <div class="submit-image">
-                        <input type="image" src="#{facesContext.externalContext.requestContextPath}/assets/table_cat_colored.png"
-                               alt="submit_table_cat"></input>
+                        <label for="y">Нацарапай число:</label>
+                        <input type="text" placeholder="Y"
+                               id="y" maxlength="6" name="y" data-range="5"/>
+                        <div class="submit-image">
+                            <input type="image"
+                                   src="#{facesContext.externalContext.requestContextPath}/assets/table_cat_colored.png"
+                                   alt="submit_table_cat"/>
+                        </div>
                     </div>
                 </div>
                 <div class="recent-result">

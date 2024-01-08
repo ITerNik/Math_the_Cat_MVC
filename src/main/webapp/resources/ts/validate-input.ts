@@ -1,6 +1,6 @@
 const mathForm: HTMLFormElement = document.querySelector<HTMLFormElement>('#math-form')
-const buttons: NodeListOf<HTMLButtonElement> = document.querySelector<HTMLElement>('.btn-bar')
-    .querySelectorAll('button')
+const inputR: NodeListOf<HTMLElement> = document.querySelector<HTMLElement>('.btn-bar')
+    .querySelectorAll('label')
 const inputY: HTMLInputElement = document.querySelector('#y')
 const inputX: HTMLInputElement = document.querySelector('#x')
 
@@ -10,7 +10,7 @@ const labelR: HTMLElement = document.querySelector('.btn-title')
 const labelX: HTMLElement = document.querySelector('label[for=x]')
 const labelY: HTMLElement = document.querySelector('label[for=y]')
 
-let activeButton : HTMLButtonElement = null
+let activeButton : HTMLElement = null
 
 interface ErrorMessage {
     empty: string,
@@ -47,8 +47,8 @@ mathForm.onsubmit = (event: SubmitEvent) => {
 }
 
 window.onload = () => {
-    buttons.forEach((btn: HTMLButtonElement) => {
-        addClickTrigger(btn)
+    inputR.forEach((label: HTMLElement) => {
+        addClickTrigger(label)
     })
     inputY.oninput = () =>  handleInput(inputY, labelY)
     inputX.oninput = () => handleInput(inputX, labelX)
@@ -72,19 +72,14 @@ function handleInput(input : HTMLInputElement, label: HTMLElement) : void {
     drawPaw(parseFloat(inputX.value) * gridSize, parseFloat(inputY.value)  * -gridSize)
 }
 
-function addClickTrigger(btn: HTMLButtonElement) : void{
-    btn.onclick = () => {
-        if (activeButton) activeButton.classList.remove('pressed')
-        btn.classList.add('pressed')
-        activeButton = btn
-
-        if (!valid['r']) {
-            valid['r'] = true;
-            hideWarning(labelR, MESSAGES.get('r').default)
+function addClickTrigger(btn: HTMLElement) : void {
+    btn.onclick = (event : MouseEvent) => {
+        if (event.target === btn) {
+            if (btn.classList.contains('pressed')) btn.classList.remove('pressed')
+            else btn.classList.add('pressed')
         }
 
-        r = parseInt(btn.value)
-        drawArea()
+        // TODO add empty error handling + drawing
     }
 }
 
@@ -100,7 +95,7 @@ function validateInput(event: SubmitEvent): void {
         $.post(path + '/images',
             { image : area.toDataURL()}
         )
-        mathForm.elements['r'].value = activeButton.value
+        // mathForm.elements['r'].value = activeButton.value
         mathForm.submit()
     }
 }
