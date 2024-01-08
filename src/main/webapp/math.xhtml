@@ -1,6 +1,7 @@
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
                 template="templates/layout.xhtml">
     <ui:define name="scripts">
         <link id="contextPathHolder" data-contextPath="#{facesContext.externalContext.requestContextPath}"/>
@@ -10,8 +11,7 @@
     </ui:define>
     <ui:define name="main-body">
         <div class="container math-page-layout">
-            <form id="math-form" action="#{facesContext.externalContext.requestContextPath}/history.xhtml"
-                  class="control-side">
+            <h:form id="math-form" styleClass="control-side">
                 <div class="control-bar">
                     <div class="btn-bar">
                         <h3 class="btn-title">
@@ -28,21 +28,22 @@
                         <label> <h:selectBooleanCheckbox/> 1,5 </label>
                         <label> <h:selectBooleanCheckbox/> 2 </label>
 
-                        <input type="hidden" name="r" value="0"/>
+                        <input type="hidden" name="x" value="0"/>
 
                     </div>
                     <div class="text-bar">
-                        <label for="x">Нацарапай число:</label>
+                        <!--<label for="r">Нацарапай число:</label>
                         <input type="text" placeholder="R"
-                               id="x" maxlength="6" name="x" data-range="3"/>
+                               id="r" maxlength="6" name="r" data-range="3"/>-->
 
-                        <label for="y">Нацарапай число:</label>
-                        <input type="text" placeholder="Y"
-                               id="y" maxlength="6" name="y" data-range="5"/>
+                        <h:outputLabel for="r" value="Нацарапай число:" />
+                        <p:inputText id="r" maxlength="6" required="true" placeholder="R" />
+
+                        <h:outputLabel for="y" value="Нацарапай число:" />
+                        <p:inputText id="y" maxlength="6" required="true" placeholder="Y" />
+
                         <div class="submit-image">
-                            <input type="image"
-                                   src="#{facesContext.externalContext.requestContextPath}/assets/table_cat_colored.png"
-                                   alt="submit_table_cat"/>
+                            <h:commandButton type="submit" image="resources/assets/table_cat_colored.png"/>
                         </div>
                     </div>
                 </div>
@@ -51,10 +52,8 @@
                         <ui:param name="resultTitle" value="Последний запрос:"/>
                     </ui:include>
                 </div>
-                <a class="show-history-btn" href="#{facesContext.externalContext.requestContextPath}/history.xhtml">
-                    Перейти к истории запросов
-                </a>
-            </form>
+                <h:link styleClass="show-history-btn" outcome="history" value="Перейти к истории запросов" />
+            </h:form>
             <div class="graphics-side">
                 <canvas id="math-area" width="2000" height="2000">Unsupported canvas view</canvas>
             </div>

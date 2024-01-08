@@ -5,9 +5,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html">
 <h:body>
         <div class="card-item">
-            <a href="#{facesContext.externalContext.requestContextPath.concat(path)}" class="card-link"/>
-            <img src="#{facesContext.externalContext.requestContextPath.concat(src)}"
-                 alt="book_coffee_cat" class="card-cover"/>
+            <h:link outcome="#{path}" styleClass="card-link"/>
+            <h:graphicImage library="assets" name="#{src}" styleClass="card-cover"/>
             <div class="text-wrapper">
                 <h2 class="card-title">#{title}</h2>
                 <div class="details-wrapper">

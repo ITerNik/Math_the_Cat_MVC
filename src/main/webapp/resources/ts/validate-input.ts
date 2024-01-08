@@ -1,16 +1,14 @@
 const mathForm: HTMLFormElement = document.querySelector<HTMLFormElement>('#math-form')
-const inputR: NodeListOf<HTMLElement> = document.querySelector<HTMLElement>('.btn-bar')
+const inputX: NodeListOf<HTMLElement> = document.querySelector<HTMLElement>('.btn-bar')
     .querySelectorAll('label')
 const inputY: HTMLInputElement = document.querySelector('#y')
-const inputX: HTMLInputElement = document.querySelector('#x')
+const inputR: HTMLInputElement = document.querySelector('#r')
 
 const path = document.querySelector<HTMLElement>('#contextPathHolder').dataset.contextpath
 
 const labelR: HTMLElement = document.querySelector('.btn-title')
 const labelX: HTMLElement = document.querySelector('label[for=x]')
 const labelY: HTMLElement = document.querySelector('label[for=y]')
-
-let activeButton : HTMLElement = null
 
 interface ErrorMessage {
     empty: string,
@@ -20,7 +18,7 @@ interface ErrorMessage {
 }
 
 const MESSAGES = new Map<string, ErrorMessage>([
-    [inputX.name, {
+    [inputR.name, {
         empty: 'Пустовато тут',
         outRange: 'Почти от -3 до 3',
         nan: 'Откуда буквы?',
@@ -30,9 +28,9 @@ const MESSAGES = new Map<string, ErrorMessage>([
         outRange: 'Может от -5 до 5?',
         nan: 'Чиселко надо',
         default: 'Нацарапай число:'
-    }], ['r', {
+    }], ['x', {
         empty: 'Выбор сложен, но необходим',
-        default: 'Тыкалки по R:'
+        default: 'Тыкалки по X:'
     }]
 ])
 
@@ -47,11 +45,11 @@ mathForm.onsubmit = (event: SubmitEvent) => {
 }
 
 window.onload = () => {
-    inputR.forEach((label: HTMLElement) => {
+    inputX.forEach((label: HTMLElement) => {
         addClickTrigger(label)
     })
     inputY.oninput = () =>  handleInput(inputY, labelY)
-    inputX.oninput = () => handleInput(inputX, labelX)
+    inputR.oninput = () => handleInput(inputR, labelX)
 }
 
 function handleInput(input : HTMLInputElement, label: HTMLElement) : void {
@@ -60,7 +58,7 @@ function handleInput(input : HTMLInputElement, label: HTMLElement) : void {
         hideWarning(label, MESSAGES.get(input.name).default)
         return
     }
-    const num = parseFloat(input.value) // TODO: regex instead of parse + parse commas
+    const num = parseFloat(input.value) // TODO regex instead of parse + parse commas
     if (isNaN(num)) {
         showWarning(label, MESSAGES.get(input.name).nan)
     } else if (Math.abs(num) >= parseInt(input.dataset.range)) {
@@ -69,7 +67,7 @@ function handleInput(input : HTMLInputElement, label: HTMLElement) : void {
         hideWarning(label, MESSAGES.get(input.name).default)
         valid[input.name] = true
     }
-    drawPaw(parseFloat(inputX.value) * gridSize, parseFloat(inputY.value)  * -gridSize)
+    // drawPaw(parseFloat(inputX.value) * gridSize, parseFloat(inputY.value)  * -gridSize)
 }
 
 function addClickTrigger(btn: HTMLElement) : void {
@@ -87,10 +85,10 @@ function validateInput(event: SubmitEvent): void {
     event.preventDefault()
 
     if (inputY.value.length === 0) showWarning(labelY, MESSAGES.get(inputY.name).empty)
-    if (inputX.value.length === 0)  showWarning(labelX, MESSAGES.get(inputX.name).empty)
-    if (!valid['r']) showWarning(labelR, MESSAGES.get('r').empty)
+    // if (inputX.value.length === 0)  showWarning(labelX, MESSAGES.get(inputX.name).empty)
+    if (!valid['x']) showWarning(labelR, MESSAGES.get('x').empty)
 
-    if (valid['r'] && valid[inputX.name] && valid[inputY.name]) {
+    if (valid['r'] && /*valid[inputX.name] &&*/ valid[inputY.name]) {
 
         $.post(path + '/images',
             { image : area.toDataURL()}

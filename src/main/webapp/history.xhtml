@@ -19,10 +19,9 @@
                     <ui:param name="resultTitle" value="Новый запрос:"/>
                 </ui:include>
             </div>
-            <a href="#{facesContext.externalContext.requestContextPath}/math.xhtml" class="back-home-image">
-                <img src="#{facesContext.externalContext.requestContextPath}/assets/Dreaming_cat_want_home.png"
-                     alt="go-home-image"/>
-            </a>
+            <h:link outcome="math" styleClass="back-home-image">
+                <h:graphicImage library="assets" name="dreaming_cat_want_home.png"/>
+            </h:link>
             <h2 class="list-title">Прошлое, которого не вернуть:</h2>
             <ul class="result-list">
                 <ui:repeat value="#{repositoryManager.queries}" var="query">
