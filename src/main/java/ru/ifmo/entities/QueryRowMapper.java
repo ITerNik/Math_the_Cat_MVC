@@ -10,8 +10,8 @@ public class QueryRowMapper {
                 rs.getDouble("x"),
                 rs.getDouble("y"),
                 rs.getDouble("r"),
-                rs.getLong("speed"),
                 rs.getBoolean("status"),
+                rs.getLong("speed"),
                 rs.getTimestamp("date").toLocalDateTime()
         );
     }

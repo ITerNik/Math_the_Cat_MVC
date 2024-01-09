@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+        xmlns:h="jakarta.faces.html">
 <h:body>
     <h3 class="result-title">#{resultTitle}</h3>
     <table class="result-table">
@@ -15,12 +15,12 @@
             <th>Скорость</th>
         </tr>
         <tr>
-            <td>#{repositoryManager.last.x}</td>
-            <td>#{repositoryManager.last.y}</td>
-            <td>#{repositoryManager.last.r}</td>
-            <td>#{repositoryManager.last.status ? "Попал" : "Мимо"}</td>
-            <td>#{repositoryManager.last.date}</td>
-            <td>#{repositoryManager.last.speed}</td>
+            <td>#{queryDataAccess.last().x}</td>
+            <td>#{queryDataAccess.last().y}</td>
+            <td>#{queryDataAccess.last().r}</td>
+            <td>#{queryDataAccess.last().status ? "Попал" : "Мимо"}</td>
+            <td>#{queryDataAccess.last().date}</td>
+            <td>#{queryDataAccess.last().speed}</td>
         </tr>
     </table>
 </h:body>

@@ -3,12 +3,13 @@ package ru.ifmo.models;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
+import lombok.NoArgsConstructor;
 import ru.ifmo.entities.Query;
 import ru.ifmo.entities.QueryRowMapper;
 
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,22 +17,26 @@ import java.util.Properties;
 
 @Named
 @ApplicationScoped
-public class QueryDataAccess {
+@NoArgsConstructor
+public class QueryDataAccess implements Serializable {
     private Connection connection;
 
     @PostConstruct
     private void connect() {
         Properties prop = new Properties();
-        try {
-            FileInputStream fin = new FileInputStream("database.properties");
+        try (InputStream fin = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/WEB-INF/database.properties")) {
+            if (fin == null) throw new RuntimeException("stream is null");
             prop.load(fin);
 
-            connection = DriverManager.getConnection(prop.getProperty("url"),
-                    prop.getProperty("user"), prop.getProperty("password"));
+            Class.forName("org.postgresql.Driver");
 
-            fin.close();
-        } catch (IOException | SQLException e) {
-            e.printStackTrace();
+            connection = DriverManager.getConnection(
+                    prop.getProperty("url"),
+                    prop.getProperty("user"),
+                    prop.getProperty("password")
+            );
+        } catch (SQLException | IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -40,7 +45,7 @@ public class QueryDataAccess {
         try {
             connection.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -59,12 +64,14 @@ public class QueryDataAccess {
 
             statement.executeUpdate();
             statement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
+
+            FacesContext.getCurrentInstance().getExternalContext().redirect("history.xhtml");
+        } catch (SQLException | IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    public List<Query> index() {
+    public List<Query> getAll() {
         List<Query> queries = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
@@ -78,9 +85,25 @@ public class QueryDataAccess {
             statement.close();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return queries;
+    }
+
+    public Query last() {
+        Query last = null;
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery("SELECT * FROM query ORDER BY date DESC LIMIT 1");
+
+            result.next();
+            statement.close();
+
+            last = QueryRowMapper.convert(result);
+        } catch (SQLException e) {
+            return new Query();
+        }
+        return last;
     }
 
 }
