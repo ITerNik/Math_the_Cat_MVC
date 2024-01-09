@@ -21,28 +21,25 @@
                             Тыкалки по X:
                         </h3>
 
-                        <c:forEach var="i" begin="0" end="#{query.size - 1}" >
-                            <h:outputLabel for="x_#{i}" value="#{query.labels[i]}" />
-                            <h:selectBooleanCheckbox id="x_#{i}" value="#{query.checkBoxes[i]}"/>
+                        <c:forEach var="i" begin="0" end="#{dataGatherer.size - 1}" >
+                            <h:outputLabel for="x_#{i}" value="#{dataGatherer.labels[i]}" />
+                            <h:selectBooleanCheckbox id="x_#{i}" value="#{dataGatherer.checkBoxes[i]}"/>
                         </c:forEach>
 
                     </div>
                     <div class="text-bar">
-                        <!--<label for="r">Нацарапай число:</label>
-                        <input type="text" placeholder="R"
-                               id="r" maxlength="6" name="r" data-range="3"/>-->
 
                         <h:outputLabel for="r" value="Нацарапай число:" />
                         <p:inputText id="r" maxlength="6" required="true" placeholder="R"
-                                    value="#{query.r}"/>
+                                    value="#{dataGatherer.r}"/>
 
                         <h:outputLabel for="y" value="Нацарапай число:" />
                         <p:inputText id="y" maxlength="6" required="true" placeholder="Y"
-                                    value="#{query.y}"/>
+                                    value="#{dataGatherer.y}"/>
 
                         <div class="submit-image">
                             <h:commandButton type="submit" image="../resources/assets/table_cat_colored.png"
-                                        action="#{query.save()}"/>
+                                        action="#{dataGatherer.save()}"/>
                         </div>
                     </div>
                 </div>

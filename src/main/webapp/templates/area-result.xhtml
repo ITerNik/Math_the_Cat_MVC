@@ -2,9 +2,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:h="jakarta.faces.html">
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:p="http://primefaces.org/ui">
 <h:body>
-    <h3 class="result-title">#{resultTitle}</h3>
+    <h:outputText value="Новый запрос" styleClass="result-title" />
     <table class="result-table">
         <tr>
             <th>X</th>
@@ -15,13 +17,18 @@
             <th>Скорость</th>
         </tr>
         <tr>
-            <td>#{queryDataAccess.last().x}</td>
-            <td>#{queryDataAccess.last().y}</td>
-            <td>#{queryDataAccess.last().r}</td>
-            <td>#{queryDataAccess.last().status ? "Попал" : "Мимо"}</td>
-            <td>#{queryDataAccess.last().date}</td>
-            <td>#{queryDataAccess.last().speed}</td>
+            <td><h:outputText value="#{queryDataAccess.last().x}"/></td>
+            <td><h:outputText value="#{queryDataAccess.last().y}"/></td>
+            <td><h:outputText value="#{queryDataAccess.last().r}"/></td>
+            <td><h:outputText value="#{queryDataAccess.last().status}" converter="QueryStatus"/></td>
+            <td>
+                <h:outputText value="#{queryDataAccess.last().date}">
+                    <f:convertDateTime type="localDateTime" pattern="HH:mm:ss"/>
+                </h:outputText>
+            </td>
+            <td><h:outputText value="#{queryDataAccess.last().speed} мс"/></td>
         </tr>
     </table>
+
 </h:body>
 </html>

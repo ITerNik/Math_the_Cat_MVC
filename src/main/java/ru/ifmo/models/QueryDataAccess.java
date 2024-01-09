@@ -97,9 +97,9 @@ public class QueryDataAccess implements Serializable {
             ResultSet result = statement.executeQuery("SELECT * FROM query ORDER BY date DESC LIMIT 1");
 
             result.next();
-            statement.close();
-
             last = QueryRowMapper.convert(result);
+
+            statement.close();
         } catch (SQLException e) {
             return new Query();
         }
