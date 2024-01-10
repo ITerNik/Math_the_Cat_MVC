@@ -1,5 +1,6 @@
 const area: HTMLCanvasElement= document.querySelector('#math-area');
 const container: HTMLElement = document.querySelector('.graphics-side')
+const img : HTMLImageElement = document.querySelector('#footprint-image-container')
 
 const ctx : CanvasRenderingContext2D = area.getContext('2d');
 
@@ -7,26 +8,22 @@ const numLines: number = 11
 
 const gridSize: number = area.width / numLines
 
-const contextPath = document.querySelector<HTMLElement>('#contextPathHolder').dataset.contextpath
-
-const img = new Image()
-img.src =  contextPath + '/assets/footprint.png'
-
 let r : number =  0
 
-function getCursorPosition(area, event): void {
+function getCursorPosition(area : HTMLCanvasElement, event: MouseEvent): void {
     if (r === 0) return
     const rect = area.getBoundingClientRect()
     const x = event.clientX - rect.left
     const y = event.clientY - rect.top
-    const scaledX = x / container.offsetWidth * numLines - numLines / 2
+    let scaledX = x / container.offsetWidth * numLines - numLines / 2
     const scaledY = - y / container.offsetHeight * numLines + numLines / 2
-    const imageX = x / container.offsetWidth * area.width - area.width / 2
+    const imageX =  x / container.offsetWidth * area.width - area.width / 2
     const imageY = y / container.offsetHeight * area.height - area.height / 2
     inputY.value = scaledY.toFixed(4)
-    inputX.value = scaledX.toFixed(4)
-    handleInput(inputY, labelY)
-    handleInput(inputX, labelX)
+    console.log(scaledX.toFixed(1))
+    //inputX.value = scaledX.toFixed(4)
+    // handleInput(inputY, labelY)
+    // handleInput(inputX, labelX)
     drawPaw(imageX, imageY)
 }
 
@@ -106,7 +103,7 @@ function drawArea() {
 
     ctx.scale(1, -1)
 
-    let markR = r === 0 ? 5 : r
+    let markR = r === 0 ? 5 : r.toFixed(1)
 
     ctx.fillStyle = "#219EBC"
 

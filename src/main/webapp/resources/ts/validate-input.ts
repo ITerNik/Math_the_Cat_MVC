@@ -1,14 +1,14 @@
 const mathForm: HTMLFormElement = document.querySelector<HTMLFormElement>('#math-form')
 const inputX: NodeListOf<HTMLElement> = document.querySelector<HTMLElement>('.btn-bar')
     .querySelectorAll('label')
-const inputY: HTMLInputElement = document.querySelector('#y')
-const inputR: HTMLInputElement = document.querySelector('#r')
+const inputY = document.getElementById('math-form:y') as HTMLInputElement
+const inputR = document.getElementById('math-form:r') as HTMLInputElement
 
-const path = document.querySelector<HTMLElement>('#contextPathHolder').dataset.contextpath
+// const path = document.querySelector<HTMLElement>('#contextPathHolder').dataset.contextpath
 
-const labelR: HTMLElement = document.querySelector('.btn-title')
-const labelX: HTMLElement = document.querySelector('label[for=x]')
-const labelY: HTMLElement = document.querySelector('label[for=y]')
+const labelX: HTMLElement = document.querySelector('.btn-title')
+const labelR: HTMLElement = document.querySelector("label[for='math-form:r']")
+const labelY: HTMLElement = document.querySelector("label[for='math-form:y']")
 
 interface ErrorMessage {
     empty: string,
@@ -18,12 +18,12 @@ interface ErrorMessage {
 }
 
 const MESSAGES = new Map<string, ErrorMessage>([
-    [inputR.name, {
+    ['r', {
         empty: 'Пустовато тут',
         outRange: 'Почти от -3 до 3',
         nan: 'Откуда буквы?',
         default: 'Нацарапай число:'
-    }], [inputY.name, {
+    }], ['y', {
         empty: 'Пустовато тут',
         outRange: 'Может от -5 до 5?',
         nan: 'Чиселко надо',
@@ -48,8 +48,11 @@ window.onload = () => {
     inputX.forEach((label: HTMLElement) => {
         addClickTrigger(label)
     })
-    inputY.oninput = () =>  handleInput(inputY, labelY)
-    inputR.oninput = () => handleInput(inputR, labelX)
+    // inputY.oninput = () =>  handleInput(inputY, labelY)
+    inputR.oninput = () => {
+        r = parseFloat(inputR.value);
+        drawArea();
+    } //handleInput(inputR, labelX)
 }
 
 function handleInput(input : HTMLInputElement, label: HTMLElement) : void {
@@ -77,7 +80,7 @@ function addClickTrigger(btn: HTMLElement) : void {
             else btn.classList.add('pressed')
         }
 
-        // TODO add empty error handling + drawing
+        // TODO Add paw drawing
     }
 }
 
@@ -90,7 +93,7 @@ function validateInput(event: SubmitEvent): void {
 
     if (valid['r'] && /*valid[inputX.name] &&*/ valid[inputY.name]) {
 
-        $.post(path + '/images',
+        $.post( '/images',
             { image : area.toDataURL()}
         )
         // mathForm.elements['r'].value = activeButton.value
