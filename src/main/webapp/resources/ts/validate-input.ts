@@ -51,7 +51,7 @@ window.onload = () => {
     // inputY.oninput = () =>  handleInput(inputY, labelY)
     inputR.oninput = () => {
         r = parseFloat(inputR.value);
-        drawArea();
+        drawArea(area)
     } //handleInput(inputR, labelX)
 }
 

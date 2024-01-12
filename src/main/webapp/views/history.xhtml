@@ -1,8 +1,8 @@
 <ui:composition xmlns:ui="jakarta.faces.facelets"
                 xmlns:h="jakarta.faces.html"
-                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns="https://jakarta.ee/xml/ns/jakartaee"
                 xmlns:f="jakarta.faces.core"
-                template="../templates/layout.xhtml">
+                template="/templates/layout.xhtml">
     <ui:param name="historyLink" value="active"/>
     <ui:define name="scripts">
         <h:outputScript library="ts" name="list-toggling.js"/>
@@ -10,35 +10,38 @@
     </ui:define>
     <ui:define name="page-cover">
         <div class="page-title side-page-title">
-            <h1>Контакты</h1>
+            <h1>История запросов</h1>
         </div>
     </ui:define>
     <ui:define name="main-body">
         <div class="container history-page-layout">
-            <div class="new-result">
-                <ui:include src="../templates/area-result.xhtml">
-                    <ui:param name="resultTitle" value="Новый запрос:"/>
-                </ui:include>
+            <div class="quick-view">
+                <div class="new-result">
+                    <ui:include src="../templates/area-result.xhtml">
+                        <ui:param name="resultTitle" value="Новый запрос:"/>
+                    </ui:include>
+                </div>
+                <h:link outcome="math" styleClass="back-home-image">
+                    <h:graphicImage library="assets" name="dreaming_cat_want_home.png"/>
+                </h:link>
             </div>
-            <h:link outcome="math" styleClass="back-home-image">
-                <h:graphicImage library="assets" name="dreaming_cat_want_home.png"/>
-            </h:link>
+
             <h2 class="list-title">Прошлое, которого не вернуть:</h2>
             <ul class="result-list">
-                <ui:repeat value="#{queryDataAccess.getAll()}" var="attempt">
+                <ui:repeat value="#{queryDataAccess.all}" var="attempt">
                     <li>
                         <div class="toggle-header">
                             <h3>Попытка №<h:outputText value="#{attempt.id}" /></h3>
                         </div>
-                        <div class="hidden toggle-body">
+                        <div class="toggle-body">
                             <div>
                                 <p>Координата X: <h:outputText value="#{attempt.x}" /></p>
                                 <p>Координата Y: <h:outputText value="#{attempt.y}" /></p>
                                 <p>Координата R: <h:outputText value="#{attempt.r}" /> </p>
                                 <p> Статус: <h:outputText value="#{attempt.status}" converter="QueryStatus" /> </p>
                                 <p> Время отправки:
-                                    <h:outputText value="#{attempt.time}">
-                                        <f:convertDateTime type="localTime" timeStyle="full"/>
+                                    <h:outputText value="#{attempt.date}">
+                                        <f:convertDateTime type="localDateTime" pattern="HH:mm:ss"/>
                                     </h:outputText>
                                 </p>
                                 <p>Время работы: <h:outputText value="#{attempt.speed}" /> мс</p>

@@ -90,7 +90,7 @@ public class QueryDataAccess implements Serializable {
         return queries;
     }
 
-    public Query last() {
+    public Query getLast() {
         Query last = null;
         try {
             Statement statement = connection.createStatement();
