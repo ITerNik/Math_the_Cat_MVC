@@ -1,11 +1,10 @@
 const area: HTMLCanvasElement= document.querySelector('#math-area');
-const dotsArea: HTMLCanvasElement= document.querySelector('#dots-area');
+const dotsArea: HTMLElement= document.querySelector('#dots-area');
 const axisArea: HTMLCanvasElement= document.querySelector('#axis-area');
 const container: HTMLElement = document.querySelector('.graphics-container')
 const img : HTMLImageElement = document.querySelector('#footprint-image-container')
 
 const ctx : CanvasRenderingContext2D = area.getContext('2d');
-const dotsCtx : CanvasRenderingContext2D = dotsArea.getContext('2d');
 const axisCtx : CanvasRenderingContext2D = axisArea.getContext('2d');
 
 const numLines: number = 11
@@ -14,30 +13,45 @@ const gridSize: number = area.width / numLines
 
 let r : number =  0
 
-function getCursorPosition(area : HTMLCanvasElement, event: MouseEvent): void {
-    if (r === 0) return
+function getCursorPosition(area : HTMLElement, event: MouseEvent): [number, number] {
+    // if (r === 0) return
     const rect = area.getBoundingClientRect()
     const x = event.clientX - rect.left
     const y = event.clientY - rect.top
-    let scaledX = x / container.offsetWidth * numLines - numLines / 2
+    let scaledX = Math.round((x / container.offsetWidth * numLines - numLines / 2) * 10) / 10
+    console.log(scaledX)
     const scaledY = - y / container.offsetHeight * numLines + numLines / 2
-    const imageX =  x / container.offsetWidth * area.width - area.width / 2
-    const imageY = - y / container.offsetHeight * area.height + area.height / 2
+    // const imageX =  x / container.offsetWidth * area.width - area.width / 2
+    //const imageY = - y / container.offsetHeight * area.height + area.height / 2
     inputY.value = scaledY.toFixed(4)
+
+    return [x, y]
     //console.log(scaledX.toFixed(1))
     //inputX.value = scaledX.toFixed(4)
     // handleInput(inputY, labelY)
     // handleInput(inputX, labelX)
-    drawPaw(dotsCtx, imageX, imageY)
+    // drawPaw(dotsCtx, imageX, imageY)
 }
 
-dotsArea.onclick = function(event) {
-    getCursorPosition(dotsArea, event)
+container.onclick = function(event) {
+    if (event.target instanceof HTMLElement) {
+        if (event.target.classList.contains('point')) event.target.remove()
+        else drawPoint(event)
+    }
+}
+
+function drawPoint(event : MouseEvent) {
+    const [x, y] = getCursorPosition(dotsArea, event)
+
+    const point: HTMLDivElement = document.createElement('div')
+    point.classList.add('point')
+    point.style.top = `${y / container.offsetHeight * 100 - 1}%`
+    point.style.left = `${x / container.offsetWidth * 100 - 1}%`
+    container.append(point)
 }
 
 
 setToDecart(ctx)
-setToDecart(dotsCtx)
 setToDecart(axisCtx)
 
 drawAxis(axisCtx)

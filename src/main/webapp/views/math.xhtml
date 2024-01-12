@@ -22,6 +22,7 @@
                         <c:forEach var="i" begin="0" end="#{dataGatherer.size - 1}">
                             <h:outputLabel for="x_#{i}" value="#{dataGatherer.labels[i]}"/>
                             <h:selectBooleanCheckbox id="x_#{i}" value="#{dataGatherer.checkBoxes[i]}"/>
+                            <h:inputText styleClass="hidden"/>
                         </c:forEach>
 
                     </div>
@@ -51,7 +52,7 @@
                 <div class="graphics-container">
                     <canvas id="math-area" width="2000" height="2000">Unsupported canvas view</canvas>
                     <canvas id="axis-area" width="2000" height="2000">Unsupported canvas view</canvas>
-                    <canvas id="dots-area" width="2000" height="2000">Unsupported canvas view</canvas>
+                    <div id="dots-area" />
                 </div>
                 <h:link styleClass="show-history-btn" outcome="history" value="Перейти к истории запросов"/>
             </div>
