@@ -22,7 +22,8 @@
                         <c:forEach var="i" begin="0" end="#{dataGatherer.size - 1}">
                             <h:outputLabel for="x_#{i}" value="#{dataGatherer.labels[i]}"/>
                             <h:selectBooleanCheckbox id="x_#{i}" value="#{dataGatherer.checkBoxes[i]}"/>
-                            <h:inputText styleClass="hidden"/>
+                            <h:inputText value="#{dataGatherer.inputs[i]}" maxlength="4" required="#{dataGatherer.checkBoxes[i]}"
+                                         placeholder="R" styleClass="hidden"/>
                         </c:forEach>
 
                     </div>
@@ -32,9 +33,10 @@
                         <p:inputText id="r" maxlength="6" required="true" placeholder="R"
                                      value="#{dataGatherer.r}"/>
 
-                        <h:outputLabel for="y" value="Нацарапай число:"/>
-                        <p:inputText id="y" maxlength="6" required="true" placeholder="Y"
-                                     value="#{dataGatherer.y}"/>
+<!--                        <h:outputLabel for="y" value="Нацарапай число:"/>-->
+<!--                        <p:inputText id="y" maxlength="6" required="true" placeholder="Y"-->
+<!--                                     value="#{dataGatherer.y}"/>-->
+                        <h:commandButton type="button" styleClass="show-history-btn" action="#{dataGatherer.clearBoxes()}" value="Отменить выбор" style="min-height: 60px; max-height: 60px;"/>
 
                         <div class="submit-image">
                             <h:commandButton type="submit" image="../resources/assets/table_cat_colored.png"
@@ -52,7 +54,6 @@
                 <div class="graphics-container">
                     <canvas id="math-area" width="2000" height="2000">Unsupported canvas view</canvas>
                     <canvas id="axis-area" width="2000" height="2000">Unsupported canvas view</canvas>
-                    <div id="dots-area" />
                 </div>
                 <h:link styleClass="show-history-btn" outcome="history" value="Перейти к истории запросов"/>
             </div>

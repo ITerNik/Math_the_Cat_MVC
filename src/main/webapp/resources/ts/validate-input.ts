@@ -1,10 +1,9 @@
 const mathForm: HTMLFormElement = document.querySelector<HTMLFormElement>('#math-form')
-const inputX: NodeListOf<HTMLElement> = document.querySelector<HTMLElement>('.btn-bar')
-    .querySelectorAll('label')
-const inputY = document.getElementById('math-form:y') as HTMLInputElement
+
+const inputY: NodeListOf<HTMLInputElement> = document.querySelector<HTMLElement>('.btn-bar')
+    .querySelectorAll('input[type=text]')
 const inputR = document.getElementById('math-form:r') as HTMLInputElement
 
-// const path = document.querySelector<HTMLElement>('#contextPathHolder').dataset.contextpath
 
 const labelX: HTMLElement = document.querySelector('.btn-title')
 const labelR: HTMLElement = document.querySelector("label[for='math-form:r']")
@@ -45,14 +44,21 @@ mathForm.onsubmit = (event: SubmitEvent) => {
 }
 
 window.onload = () => {
-    inputX.forEach((label: HTMLElement) => {
-        addClickTrigger(label)
+    inputX.forEach((btn: HTMLInputElement, index: number) => {
+        btn.onclick = () => pressLabel(btn, index)
+        btn.labels[0].onclick = () => drawPointFromLabel(index)
     })
-    // inputY.oninput = () =>  handleInput(inputY, labelY)
+    inputY.forEach((input, index) => {
+        input.oninput = () => {
+            const scaledX = (labelValues[index] + numLines / 2) * container.offsetWidth / numLines
+            const scaledY = (-parseFloat(input.value) + numLines / 2) * container.offsetWidth / numLines
+            redrawPoint(scaledX, scaledY, index)
+        }
+    })
     inputR.oninput = () => {
         r = parseFloat(inputR.value);
         drawArea(area)
-    } //handleInput(inputR, labelX)
+    }
 }
 
 function handleInput(input : HTMLInputElement, label: HTMLElement) : void {
@@ -73,25 +79,35 @@ function handleInput(input : HTMLInputElement, label: HTMLElement) : void {
     // drawPaw(parseFloat(inputX.value) * gridSize, parseFloat(inputY.value)  * -gridSize)
 }
 
-function addClickTrigger(btn: HTMLElement) : void {
-    btn.onclick = (event : MouseEvent) => {
-        if (event.target === btn) {
-            if (btn.classList.contains('pressed')) btn.classList.remove('pressed')
-            else btn.classList.add('pressed')
-        }
+function mirrorButton(btn: HTMLInputElement, index: number) {
+    if (!btn.checked) drawPointFromLabel(index)
+    else {
+        pointsData.get(labelValues[index]).remove()
+        pointsData.delete(labelValues[index])
+    }
+}
+function pressLabel(btn: HTMLInputElement, index: number) : void {
+    const label: HTMLLabelElement = btn.labels[0]
+    if (btn.checked) {
+        label.classList.add('pressed')
+        label.classList.add('hidden')
+        inputY[index].classList.remove('hidden')
+    } else {
+        label.classList.remove('pressed')
+        label.classList.remove('hidden')
+        inputY[index].classList.add('hidden')
 
-        // TODO Add paw drawing
     }
 }
 
 function validateInput(event: SubmitEvent): void {
     event.preventDefault()
 
-    if (inputY.value.length === 0) showWarning(labelY, MESSAGES.get(inputY.name).empty)
+    // if (inputY.value.length === 0) showWarning(labelY, MESSAGES.get(inputY.name).empty)
     // if (inputX.value.length === 0)  showWarning(labelX, MESSAGES.get(inputX.name).empty)
     if (!valid['x']) showWarning(labelR, MESSAGES.get('x').empty)
 
-    if (valid['r'] && /*valid[inputX.name] &&*/ valid[inputY.name]) {
+    if (valid['r']/*valid[inputX.name] &&*/) {
 
         $.post( '/images',
             { image : area.toDataURL()}

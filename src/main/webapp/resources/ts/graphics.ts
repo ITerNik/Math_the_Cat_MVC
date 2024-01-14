@@ -1,8 +1,14 @@
 const area: HTMLCanvasElement= document.querySelector('#math-area');
-const dotsArea: HTMLElement= document.querySelector('#dots-area');
 const axisArea: HTMLCanvasElement= document.querySelector('#axis-area');
 const container: HTMLElement = document.querySelector('.graphics-container')
 const img : HTMLImageElement = document.querySelector('#footprint-image-container')
+const inputX: NodeListOf<HTMLInputElement> = document.querySelector<HTMLElement>('.btn-bar')
+    .querySelectorAll('input[type=checkbox]')
+const labelValues: number[] = []
+
+inputX.forEach( box => labelValues.push(parseFloat(box.labels[0].textContent)))
+
+
 
 const ctx : CanvasRenderingContext2D = area.getContext('2d');
 const axisCtx : CanvasRenderingContext2D = axisArea.getContext('2d');
@@ -13,41 +19,104 @@ const gridSize: number = area.width / numLines
 
 let r : number =  0
 
+
+const pointsData : Map<number, HTMLImageElement> = new Map<number, HTMLImageElement>()
+let pointsCounter: number = 0;
+
 function getCursorPosition(area : HTMLElement, event: MouseEvent): [number, number] {
-    // if (r === 0) return
     const rect = area.getBoundingClientRect()
     const x = event.clientX - rect.left
     const y = event.clientY - rect.top
-    let scaledX = Math.round((x / container.offsetWidth * numLines - numLines / 2) * 10) / 10
-    console.log(scaledX)
-    const scaledY = - y / container.offsetHeight * numLines + numLines / 2
-    // const imageX =  x / container.offsetWidth * area.width - area.width / 2
-    //const imageY = - y / container.offsetHeight * area.height + area.height / 2
-    inputY.value = scaledY.toFixed(4)
 
     return [x, y]
-    //console.log(scaledX.toFixed(1))
-    //inputX.value = scaledX.toFixed(4)
-    // handleInput(inputY, labelY)
-    // handleInput(inputX, labelX)
-    // drawPaw(dotsCtx, imageX, imageY)
 }
 
 container.onclick = function(event) {
+    const [x, y] = getCursorPosition(container, event)
+    const scaledX = Math.round((x / container.offsetWidth * numLines - numLines / 2) * 10) / 10
+    const index = labelValues.indexOf(scaledX)
+
     if (event.target instanceof HTMLElement) {
-        if (event.target.classList.contains('point')) event.target.remove()
-        else drawPoint(event)
+        if (event.target.classList.contains('point')) {
+            removePoint(event.target)
+        } else if (index !== -1) {
+            redrawPoint(x, y, index)
+            inputY[index].value = (- y / container.offsetHeight * numLines + numLines / 2).toFixed(2)
+        } else {
+            drawPoint(x, y)
+        }
     }
 }
 
-function drawPoint(event : MouseEvent) {
-    const [x, y] = getCursorPosition(dotsArea, event)
+function removePoint(point: HTMLElement) {
+    point.remove()
+    pointsCounter--
+}
 
-    const point: HTMLDivElement = document.createElement('div')
+function redrawPoint(x: number, y :number, index: number) {
+    let point : HTMLImageElement
+    if (pointsData.has(labelValues[index])) {
+        point  = pointsData.get(labelValues[index])
+    } else {
+        point = createPoint()
+        point.style.filter = 'sepia(1)'
+        point.onclick = () => {
+            inputX[index].click()
+            pointsData.delete(labelValues[index])
+        }
+        inputX[index].click()
+    }
+
+    appendPoint(point, x, y)
+
+    pointsData.set(labelValues[index], point)
+}
+
+function drawPoint(x : number, y: number) {
+
+    /*const scaledX = Math.round((x / container.offsetWidth * numLines - numLines / 2) * 10) / 10
+    const scaledY = - y / container.offsetHeight * numLines + numLines / 2
+    inputY.value = scaledY.toFixed(4)
+    //inputX.value = scaledX.toFixed(4)*/
+    const point: HTMLImageElement = createPoint()
+    appendPoint(point, x, y)
+}
+
+function createPoint() : HTMLImageElement {
+    const point: HTMLImageElement = document.createElement('img')
+    point.src = img.src
     point.classList.add('point')
-    point.style.top = `${y / container.offsetHeight * 100 - 1}%`
-    point.style.left = `${x / container.offsetWidth * 100 - 1}%`
+    pointsCounter++
+
+    return point
+}
+
+function appendPoint(point: HTMLImageElement, x: number, y: number) {
+    point.style.transform = `rotate(${getRandomAngle(-90, 90)}deg)`
+    point.style.top = `${y / container.offsetHeight * 100 - 1.5}%`
+    point.style.left = `${x / container.offsetWidth * 100 - 1.5}%`
+
     container.append(point)
+}
+
+function drawPointFromLabel(index: number) {
+    let point : HTMLImageElement = createPoint()
+    point.style.filter = 'sepia(1)'
+    point.onclick = () => {
+        inputX[index].click()
+        pointsData.delete(x)
+    }
+
+    const x = labelValues[index]
+    const scaledY =  numLines / 2 * container.offsetHeight / numLines
+    const scaledX = (x + numLines / 2) * container.offsetWidth / numLines
+    appendPoint(point, scaledX, scaledY)
+
+    pointsData.set(x, point)
+}
+
+function getRandomAngle(from: number, to: number) : number{
+    return Math.random() * (to - from) + from
 }
 
 
@@ -56,12 +125,6 @@ setToDecart(axisCtx)
 
 drawAxis(axisCtx)
 drawArea(area)
-
-function drawPaw(ctx: CanvasRenderingContext2D, dx: number, dy: number) : void {
-    if (isNaN(dx) || isNaN(dy) || r === 0) return
-    clearAll(ctx)
-    ctx.drawImage(img, dx - 25, dy - 25, 50, 50)
-}
 
 function drawArea(area : HTMLCanvasElement) {
     const ctx: CanvasRenderingContext2D = area.getContext('2d')
@@ -149,6 +212,14 @@ function drawAxis(ctx : CanvasRenderingContext2D) : void {
         }
         ctx.stroke()
     }
+
+    for (let i = 0; i < labelValues.length; i++) {
+        const line : HTMLDivElement = document.createElement('div')
+        line.classList.add('navigation-line')
+        line.style.left = `${49.5 + gridSize * labelValues[i] / 2000 * 100}%`
+        container.append(line)
+    }
+
 
     /* ctx.beginPath();
     ctx.moveTo(-dx, 0);

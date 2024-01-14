@@ -340,6 +340,11 @@ main {
     .centering();
   }
 
+  input[type=text] {
+    .filled-box(@blue-green);
+    width: 80px;
+  }
+
   input[type=checkbox] {
     display: none;
   }
@@ -468,18 +473,26 @@ main {
     z-index: 1;
   }
 
-  #dots-area {
+  .navigation-line {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 1%;
     z-index: 2;
   }
 }
 
 .point {
-  height: 2%;
+  height: 3%;
   position: absolute;
-  width: 2%;
-  //background-image: url(../assets/footprint.png);
-  background: @ut-orange;
+  width: 3%;
+  //background: @ut-orange;
   z-index: 3;
+  cursor: pointer;
+  &:hover {
+    scale: 1.1;
+  }
 }
 
 // History page
@@ -580,7 +593,7 @@ main {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .visible {
