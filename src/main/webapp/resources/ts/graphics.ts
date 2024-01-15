@@ -53,6 +53,13 @@ function removePoint(point: HTMLElement) {
     pointsCounter--
 }
 
+function clearPoints() {
+    const points: NodeListOf<HTMLImageElement> = document.querySelectorAll('.point')
+    points.forEach(point => point.click())
+    inputR.value = '0.0'
+    inputR.dispatchEvent(new Event('input'))
+}
+
 function redrawPoint(x: number, y :number, index: number) {
     let point : HTMLImageElement
     if (pointsData.has(labelValues[index])) {
@@ -73,11 +80,6 @@ function redrawPoint(x: number, y :number, index: number) {
 }
 
 function drawPoint(x : number, y: number) {
-
-    /*const scaledX = Math.round((x / container.offsetWidth * numLines - numLines / 2) * 10) / 10
-    const scaledY = - y / container.offsetHeight * numLines + numLines / 2
-    inputY.value = scaledY.toFixed(4)
-    //inputX.value = scaledX.toFixed(4)*/
     const point: HTMLImageElement = createPoint()
     appendPoint(point, x, y)
 }
@@ -119,6 +121,10 @@ function getRandomAngle(from: number, to: number) : number{
     return Math.random() * (to - from) + from
 }
 
+ctx.font
+ctx.font = 'normal 44px fantasy';
+ctx.textAlign = 'center';
+
 
 setToDecart(ctx)
 setToDecart(axisCtx)
@@ -130,37 +136,34 @@ function drawArea(area : HTMLCanvasElement) {
     const ctx: CanvasRenderingContext2D = area.getContext('2d')
     setToDecart(ctx)
     clearAll(ctx)
+    let markR = 5
 
-    const linesX = Math.floor(area.height / gridSize / 2);
-    const linesY = Math.floor(area.width / gridSize / 2);
-    let scaledR = r * gridSize
+    if (r >= 2 && r <= 5) {
+        let scaledR = r * gridSize
 
-    ctx.lineWidth = 10
-    ctx.strokeStyle = "#219EBC"
-    ctx.fillStyle = "#8ECAE6"
+        ctx.lineWidth = 10
+        ctx.strokeStyle = "#219EBC"
+        ctx.fillStyle = "#8ECAE6"
 
-    ctx.beginPath()
-    ctx.moveTo(0, scaledR)
-    ctx.lineTo(scaledR, scaledR)
-    ctx.lineTo(scaledR, 0)
-    ctx.lineTo(0, 0)
-    ctx.lineTo(0, -scaledR)
-    ctx.arcTo(-scaledR, -scaledR, -scaledR,  0, scaledR)
-    ctx.lineTo(-scaledR / 2, 0)
-    ctx.lineTo(-scaledR / 2, 0)
-    ctx.lineTo(0, scaledR / 2)
-    ctx.closePath()
+        ctx.beginPath()
+        ctx.moveTo(0, scaledR)
+        ctx.lineTo(scaledR, scaledR)
+        ctx.lineTo(scaledR, 0)
+        ctx.lineTo(0, 0)
+        ctx.lineTo(0, -scaledR)
+        ctx.arcTo(-scaledR, -scaledR, -scaledR, 0, scaledR)
+        ctx.lineTo(-scaledR / 2, 0)
+        ctx.lineTo(-scaledR / 2, 0)
+        ctx.lineTo(0, scaledR / 2)
+        ctx.closePath()
 
-    ctx.fill()
-    ctx.stroke()
+        ctx.fill()
+        ctx.stroke()
 
-    ctx.font
-    ctx.font = 'normal 44px fantasy';
-    ctx.textAlign = 'center';
+        markR = r
+    }
 
     ctx.scale(1, -1)
-
-    let markR: number = r === 0 ? 5 : r
 
     ctx.fillStyle = "#219EBC"
 
@@ -216,34 +219,9 @@ function drawAxis(ctx : CanvasRenderingContext2D) : void {
     for (let i = 0; i < labelValues.length; i++) {
         const line : HTMLDivElement = document.createElement('div')
         line.classList.add('navigation-line')
-        line.style.left = `${49.5 + gridSize * labelValues[i] / 2000 * 100}%`
+        line.style.left = `${50 + gridSize * labelValues[i] / area.width * 100 - 0.4}%`
         container.append(line)
     }
-
-
-    /* ctx.beginPath();
-    ctx.moveTo(-dx, 0);
-    ctx.lineTo(-dx+15, -10)
-    ctx.moveTo(-dx+15, 10);
-    ctx.lineTo(-dx, 0)
-    ctx.lineTo(dx, 0);
-    ctx.lineTo(dx-15, -10);
-    ctx.moveTo(dx, 0);
-    ctx.lineTo(dx-15, 10);
-
-    ctx.moveTo(0, -dy);
-    ctx.lineTo(-10, -dy+15);
-    ctx.moveTo(10, -dy+15);
-    ctx.lineTo(0, -dy);
-    ctx.lineTo(0, dy);
-    ctx.lineTo(-10, dy-15);
-    ctx.moveTo(0, dy);
-    ctx.lineTo(10, dy-15);
-
-    ctx.lineJoin = 'round';
-    ctx.lineWidth = 2;
-    ctx.strokeStyle = 'black';
-    ctx.stroke(); */
 }
 
 function clearAll(ctx: CanvasRenderingContext2D) {

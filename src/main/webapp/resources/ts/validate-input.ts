@@ -40,7 +40,7 @@ const valid = new Map<string, boolean>([
 ])
 
 mathForm.onsubmit = (event: SubmitEvent) => {
-    validateInput(event)
+    //validateInput(event)
 }
 
 window.onload = () => {
@@ -67,7 +67,7 @@ function handleInput(input : HTMLInputElement, label: HTMLElement) : void {
         hideWarning(label, MESSAGES.get(input.name).default)
         return
     }
-    const num = parseFloat(input.value) // TODO regex instead of parse + parse commas
+    const num = parseFloat(input.value)
     if (isNaN(num)) {
         showWarning(label, MESSAGES.get(input.name).nan)
     } else if (Math.abs(num) >= parseInt(input.dataset.range)) {
@@ -76,16 +76,8 @@ function handleInput(input : HTMLInputElement, label: HTMLElement) : void {
         hideWarning(label, MESSAGES.get(input.name).default)
         valid[input.name] = true
     }
-    // drawPaw(parseFloat(inputX.value) * gridSize, parseFloat(inputY.value)  * -gridSize)
 }
 
-function mirrorButton(btn: HTMLInputElement, index: number) {
-    if (!btn.checked) drawPointFromLabel(index)
-    else {
-        pointsData.get(labelValues[index]).remove()
-        pointsData.delete(labelValues[index])
-    }
-}
 function pressLabel(btn: HTMLInputElement, index: number) : void {
     const label: HTMLLabelElement = btn.labels[0]
     if (btn.checked) {

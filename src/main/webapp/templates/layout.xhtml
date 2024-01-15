@@ -3,11 +3,14 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="jakarta.faces.html"
-      xmlns:ui="jakarta.faces.facelets">
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:p="http://primefaces.org/ui">
+
 
     <h:head>
         <title>Math the cat</title>
         <meta http-equiv='content-type' content='text/html;charset=utf-8' />
+        <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&amp;display=swap" rel="stylesheet" />
         <link rel="stylesheet/less" href="#{facesContext.externalContext.requestContextPath}/resources/css/styles.less"/>
         <h:outputScript library="ts" name="less.js"/>
     </h:head>
@@ -15,7 +18,10 @@
         <header>
             <div class="container">
                 <nav class="top-menu bg-dark">
-                    <h:link outcome="index" value="Math the Cat"/>
+                    <div class="logo">
+                        <h:link outcome="index" value="Math the Cat"/>
+                        <p:clock pattern="HH:mm" autoSync="true" syncInterval="13000" id="menu-clock"/>
+                    </div>
                     <ul class="main-menu">
                         <li><h:link outcome="index" value="Главная" styleClass="#{homeLink}"/></li>
                         <li><h:link outcome="history" value="История" styleClass="#{historyLink}"/></li>

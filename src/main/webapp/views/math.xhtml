@@ -3,6 +3,7 @@
                 xmlns:h="jakarta.faces.html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:c="jakarta.tags.core"
+                xmlns:f="jakarta.faces.core"
                 template="/templates/layout.xhtml">
     <ui:define name="scripts">
         <h:graphicImage id="footprint-image-container" library="assets" name="footprint.png" styleClass="hidden"/>
@@ -29,14 +30,13 @@
                     </div>
                     <div class="text-bar">
 
-                        <h:outputLabel for="r" value="Нацарапай число:"/>
-                        <p:inputText id="r" maxlength="6" required="true" placeholder="R"
+                        <h:outputLabel for="r" value="Нацарапай радиус:"/>
+                        <p:inputText id="r" maxlength="4" required="true" placeholder="R"
                                      value="#{dataGatherer.r}"/>
 
-<!--                        <h:outputLabel for="y" value="Нацарапай число:"/>-->
-<!--                        <p:inputText id="y" maxlength="6" required="true" placeholder="Y"-->
-<!--                                     value="#{dataGatherer.y}"/>-->
-                        <h:commandButton type="button" styleClass="show-history-btn" action="#{dataGatherer.clearBoxes()}" value="Отменить выбор" style="min-height: 60px; max-height: 60px;"/>
+                        <h:commandButton styleClass="clear-all-btn" actionListener="#{dataGatherer.clearChoice()}" value="Сбросить все">
+                            <f:ajax />
+                        </h:commandButton>
 
                         <div class="submit-image">
                             <h:commandButton type="submit" image="../resources/assets/table_cat_colored.png"

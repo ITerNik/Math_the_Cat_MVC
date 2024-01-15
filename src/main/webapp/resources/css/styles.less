@@ -139,6 +139,18 @@ header .container {
   top: 0;
   z-index: 5;
 
+  .logo {
+    display: flex;
+    align-items: center;
+  }
+
+  #menu-clock {
+    font-family: 'Orbitron', sans-serif;
+    background: none;
+    border: none;
+    color: @ivory
+  }
+
   a {
     display: block;
     text-decoration: none;
@@ -405,7 +417,7 @@ main {
   width: 100%;
   display: flex;
   flex: 1;
-
+  max-width: 600px;
   min-height: 200px;
   flex-flow: row wrap;
   overflow: hidden;
@@ -436,6 +448,14 @@ main {
   .centering();
   .base-font-style(26px);
   text-decoration: none;
+}
+
+.clear-all-btn {
+  .filled-box(@ut-orange);
+  height: 60px;
+  width: 100%;
+  border: none;
+  cursor: pointer;
 }
 
 // Graphics side
@@ -478,7 +498,7 @@ main {
     position: absolute;
     top: 0;
     height: 100%;
-    width: 1%;
+    width: 0.8%;
     z-index: 2;
   }
 }

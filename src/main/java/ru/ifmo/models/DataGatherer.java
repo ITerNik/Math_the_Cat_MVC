@@ -6,9 +6,13 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Data;
 import org.omnifaces.util.Ajax;
+import org.primefaces.PrimeFaces;
 import ru.ifmo.entities.Query;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Named
 @SessionScoped
@@ -37,13 +41,17 @@ public class DataGatherer implements Serializable {
     public void save() {
         long start = System.currentTimeMillis();
         boolean flag = false;
+        List<Double> x = new ArrayList<>();
+        List<Double> y = new ArrayList<>();
         for (int i = 0; i < checkBoxes.length; ++i) {
-            if (checkBoxes[i] && checkPoint(labels[i], inputs[i], r)) {
-                flag = true;
-                break;
+            if (checkBoxes[i]) {
+                if (checkPoint(labels[i], inputs[i], r)) flag = true;
+                x.add(labels[i]);
+                y.add(inputs[i]);
             }
         }
-        dataAccess.save(new Query(x, y, r, flag, System.currentTimeMillis() - start));
+        dataAccess.save(new Query(0, r, y, x, System.currentTimeMillis() - start, flag, LocalDateTime.now()));
+        clearChoice();
     }
 
     private boolean checkPoint(double x, double y, double r) {
@@ -62,8 +70,11 @@ public class DataGatherer implements Serializable {
         }
     }
 
-    public void clearBoxes() {
+
+    public void clearChoice() {
         checkBoxes = new boolean[labels.length];
-        Ajax.update("math-form");
+        inputs = new double[labels.length];
+        r = 0;
+        PrimeFaces.current().executeScript("clearPoints()");
     }
 }

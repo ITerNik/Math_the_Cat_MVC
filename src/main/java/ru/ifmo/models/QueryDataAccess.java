@@ -6,6 +6,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
 import lombok.NoArgsConstructor;
+import ru.ifmo.entities.CoordinateRowMapper;
 import ru.ifmo.entities.Query;
 import ru.ifmo.entities.QueryRowMapper;
 
@@ -25,7 +26,6 @@ public class QueryDataAccess implements Serializable {
     private void connect() {
         Properties prop = new Properties();
         try (InputStream fin = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/WEB-INF/database.properties")) {
-            if (fin == null) throw new RuntimeException("stream is null");
             prop.load(fin);
 
             Class.forName("org.postgresql.Driver");
@@ -51,22 +51,42 @@ public class QueryDataAccess implements Serializable {
 
     public void save(Query query) {
         try {
-            PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO query (x, y, r, status, speed, date, image) VALUES (?, ?, ?, ?, ?, ?)"
+            PreparedStatement first = connection.prepareStatement(
+                    "INSERT INTO query (r, status, speed, date, image) VALUES (?, ?, ?, ?, ?)",
+                    Statement.RETURN_GENERATED_KEYS
             );
 
-            statement.setDouble(1, query.getX());
-            statement.setDouble(2, query.getY());
-            statement.setDouble(3, query.getR());
-            statement.setBoolean(4, query.isStatus());
-            statement.setLong(5, query.getSpeed());
-            statement.setString(6, "");
+            first.setDouble(1, query.getR());
+            first.setBoolean(2, query.isStatus());
+            first.setLong(3, query.getSpeed());
+            first.setTimestamp(4, Timestamp.valueOf(query.getDate()));
+            first.setString(5, "");
 
-            statement.executeUpdate();
-            statement.close();
+            first.executeUpdate();
+            ResultSet result = first.getGeneratedKeys();
 
-            FacesContext.getCurrentInstance().getExternalContext().redirect("history.xhtml");
-        } catch (SQLException | IOException e) {
+            List<Double> x = query.getX();
+            List<Double> y = query.getY();
+            result.next();
+            int id = result.getInt("id");
+            result.close();
+            first.close();
+
+            PreparedStatement second = connection.prepareStatement("INSERT INTO coordinate (x, y, query_id) VALUES (?, ?, ?)");
+            second.setDouble(3, id);
+
+            for (int i = 0; i < x.size(); ++i) {
+                second.setDouble(1, x.get(i));
+                second.setDouble(2, y.get(i));
+                second.addBatch();
+            }
+
+            second.executeBatch();
+
+            second.close();
+
+            // FacesContext.getCurrentInstance().getExternalContext().redirect("history.xhtml");
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
@@ -77,13 +97,22 @@ public class QueryDataAccess implements Serializable {
             Statement statement = connection.createStatement();
 
             ResultSet result = statement.executeQuery("SELECT * FROM query");
+
+            PreparedStatement coordinates = connection.prepareStatement("SELECT * FROM coordinate WHERE query_id = ?");
             while (result.next()) {
-                queries.add(QueryRowMapper.convert(result));
+                Query query = QueryRowMapper.convert(result);
+                coordinates.setInt(1,query.getId());
+                ResultSet rs = coordinates.executeQuery();
+
+                CoordinateRowMapper.convertCoordinates(rs, query);
+                queries.add(query);
+
+                rs.close();
             }
 
+            coordinates.close();
             result.close();
             statement.close();
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -99,8 +128,15 @@ public class QueryDataAccess implements Serializable {
             result.next();
             last = QueryRowMapper.convert(result);
 
+            PreparedStatement coordinates = connection.prepareStatement("SELECT  * FROM coordinate WHERE query_id = ?");
+            coordinates.setInt(1, last.getId());
+            ResultSet rs = coordinates.executeQuery();
+
+            CoordinateRowMapper.convertCoordinates(rs, last);
+
+            result.close();
             statement.close();
-        } catch (SQLException e) {
+        } catch (SQLException | NullPointerException e) {
             return new Query();
         }
         return last;
