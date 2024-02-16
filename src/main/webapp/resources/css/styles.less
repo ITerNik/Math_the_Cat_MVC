@@ -397,6 +397,29 @@ main {
   background: @ut-orange !important;
 }
 
+.popup-error {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  padding: 15px;
+  .centering();
+  text-align: center;
+  .base-font-style(20);
+  color: @ivory;
+  min-height: 120px;
+  border-radius: 10px;
+  background: #02304780;
+  position: absolute;
+  top: 80px;
+  right: 20px;
+  transition: opacity ease 0.5s;
+}
+
+.stuck {
+  position: fixed;
+  top: 20px;
+}
+
 .submit-image {
   height: 60%;
   margin: auto;
@@ -627,6 +650,11 @@ main {
     max-height: 15em;
     transition: inherit;
   }
+}
+
+.invisible {
+  opacity: 0;
+  transition: opacity ease 3s;
 }
 
 

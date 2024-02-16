@@ -2,13 +2,17 @@ const area: HTMLCanvasElement= document.querySelector('#math-area');
 const axisArea: HTMLCanvasElement= document.querySelector('#axis-area');
 const container: HTMLElement = document.querySelector('.graphics-container')
 const img : HTMLImageElement = document.querySelector('#footprint-image-container')
+const popup : HTMLDivElement = document.querySelector('.popup-error')
+const menu : HTMLElement = document.querySelector('.top-menu')
 const inputX: NodeListOf<HTMLInputElement> = document.querySelector<HTMLElement>('.btn-bar')
     .querySelectorAll('input[type=checkbox]')
 const labelValues: number[] = []
 
 inputX.forEach( box => labelValues.push(parseFloat(box.labels[0].textContent)))
 
-
+document.onscroll = () => {
+    popup.classList.toggle('stuck', menu.getBoundingClientRect().top < -60)
+}
 
 const ctx : CanvasRenderingContext2D = area.getContext('2d');
 const axisCtx : CanvasRenderingContext2D = axisArea.getContext('2d');
@@ -117,7 +121,7 @@ function drawPointFromLabel(index: number) {
     pointsData.set(x, point)
 }
 
-function getRandomAngle(from: number, to: number) : number{
+function getRandomAngle(from: number, to: number) : number {
     return Math.random() * (to - from) + from
 }
 

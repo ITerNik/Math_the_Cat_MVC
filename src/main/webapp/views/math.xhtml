@@ -13,6 +13,15 @@
     </ui:define>
     <ui:define name="main-body">
         <div class="container math-page-layout">
+            <div id="message-container" class="hidden">
+                <h:panelGroup id="messages">
+                    <p><h:message for="math-form:r" /></p>
+                    <c:forEach var="i" begin="0" end="#{dataGatherer.size - 1}">
+                        <p><h:message for="math-form:y_#{i}" /></p>
+                    </c:forEach>
+                  <p><h:outputText rendered="#{dataGatherer.correctInput}" value="Необходимо выбрать хотя бы один X"/></p>
+                </h:panelGroup>
+            </div>
             <h:form id="math-form" styleClass="control-side">
                 <div class="control-bar">
                     <div class="btn-bar">
@@ -21,10 +30,12 @@
                         </h3>
 
                         <c:forEach var="i" begin="0" end="#{dataGatherer.size - 1}">
-                            <h:outputLabel for="x_#{i}" value="#{dataGatherer.labels[i]}"/>
+                            <h:outputLabel for="x_#{i}" value="#{dataGatherer.labels[i]}" />
                             <h:selectBooleanCheckbox id="x_#{i}" value="#{dataGatherer.checkBoxes[i]}"/>
-                            <h:inputText value="#{dataGatherer.inputs[i]}" maxlength="4" required="#{dataGatherer.checkBoxes[i]}"
-                                         placeholder="R" styleClass="hidden"/>
+                            <h:inputText value="#{dataGatherer.inputs[i]}" maxlength="4" id="y_#{i}"
+                                         placeholder="Y" styleClass="hidden" validatorMessage="Значение одного из Y не соответствует диапазону от -3 до 5">
+                                <f:validateDoubleRange minimum="-3" maximum="5" />
+                            </h:inputText>
                         </c:forEach>
 
                     </div>
@@ -32,7 +43,11 @@
 
                         <h:outputLabel for="r" value="Нацарапай радиус:"/>
                         <p:inputText id="r" maxlength="4" required="true" placeholder="R"
-                                     value="#{dataGatherer.r}"/>
+                                     value="#{dataGatherer.r}"
+                                     validatorMessage="Значение радиуса должно находиться в пределе от 2 до 5"
+                        converterMessage="Радиус не похож на число" requiredMessage="Радиус не должен пустовать">
+                            <f:validateDoubleRange minimum="2" maximum="5"/>
+                        </p:inputText>
 
                         <h:commandButton styleClass="clear-all-btn" actionListener="#{dataGatherer.clearChoice()}" value="Сбросить все">
                             <f:ajax />
@@ -40,7 +55,9 @@
 
                         <div class="submit-image">
                             <h:commandButton type="submit" image="../resources/assets/table_cat_colored.png"
-                                             action="#{dataGatherer.save()}"/>
+                                             action="#{dataGatherer.save()}">
+                                <f:ajax execute="@form" render="messages" onerror="displayErrors()"/>
+                            </h:commandButton>
                         </div>
                     </div>
                 </div>

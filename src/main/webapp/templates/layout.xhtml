@@ -18,6 +18,9 @@
         <header>
             <div class="container">
                 <nav class="top-menu bg-dark">
+                    <div class="popup-error invisible">
+                        <ui:insert name="popup" />
+                    </div>
                     <div class="logo">
                         <h:link outcome="index" value="Math the Cat"/>
                         <p:clock pattern="HH:mm" autoSync="true" syncInterval="13000" id="menu-clock"/>

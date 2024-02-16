@@ -2,10 +2,11 @@ package ru.ifmo.models;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Data;
-import org.omnifaces.util.Ajax;
 import org.primefaces.PrimeFaces;
 import ru.ifmo.entities.Query;
 
@@ -27,6 +28,8 @@ public class DataGatherer implements Serializable {
     private boolean[] checkBoxes;
     private double[] inputs;
 
+    private boolean correctInput;
+
     @PostConstruct
     private void fillBoxes() {
         labels = new double[] {-2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2};
@@ -40,6 +43,7 @@ public class DataGatherer implements Serializable {
 
     public void save() {
         long start = System.currentTimeMillis();
+        correctInput = false;
         boolean flag = false;
         List<Double> x = new ArrayList<>();
         List<Double> y = new ArrayList<>();
@@ -50,8 +54,13 @@ public class DataGatherer implements Serializable {
                 y.add(inputs[i]);
             }
         }
+        if (x.isEmpty() || y.isEmpty()) {
+            correctInput = true;
+            return;
+        }
         dataAccess.save(new Query(0, r, y, x, System.currentTimeMillis() - start, flag, LocalDateTime.now()));
         clearChoice();
+        PrimeFaces.current().executeScript("showSuccess()");
     }
 
     private boolean checkPoint(double x, double y, double r) {
